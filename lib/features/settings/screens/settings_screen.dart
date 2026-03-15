@@ -4,6 +4,7 @@ import 'package:planova_app/core/constants/app_colors.dart';
 
 import '../models/statisticCardData.dart';
 import '../widgets/statisticCard.dart';
+import 'privacy_security_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -54,7 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.cardColor,
@@ -147,7 +148,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
                 shrinkWrap: true,
-                children: _statistics.map((data) => buildStatisticCard(data)).toList(),
+                children: _statistics
+                    .map((data) => buildStatisticCard(data))
+                    .toList(),
               ),
               const SizedBox(height: 18),
               Text(
@@ -289,7 +292,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Icons.chevron_right,
                         color: Color(0xFF9E9E9E),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const PrivacySecurityScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -350,4 +359,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
-
