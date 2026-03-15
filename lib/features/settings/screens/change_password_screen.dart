@@ -67,7 +67,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               if (label == 'New Password' && value.trim().length < 8) {
                 return 'Password must be at least 8 characters';
               }
-              if (label == 'Confirm Password' && value.trim() != _newController.text.trim()) {
+              if (label == 'Confirm Password' &&
+                  value.trim() != _newController.text.trim()) {
                 return 'Passwords do not match';
               }
               return null;
@@ -76,13 +77,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.lock_outline, color: AppColors.textGrey),
               suffixIcon: IconButton(
-                icon: Icon(obscure ? Icons.visibility_off : Icons.visibility, color: AppColors.textGrey),
+                icon: Icon(
+                  obscure ? Icons.visibility_off : Icons.visibility,
+                  color: AppColors.textGrey,
+                ),
                 onPressed: toggle,
               ),
               hintText: hint,
               hintStyle: GoogleFonts.poppins(color: AppColors.textGrey),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 16,
+              ),
             ),
           ),
         ),
@@ -123,11 +130,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Center(
-                  child: Icon(
-                    Icons.lock,
-                    color: Color(0xFF5C6BC0),
-                    size: 40,
-                  ),
+                  child: Icon(Icons.lock, color: Color(0xFF5C6BC0), size: 40),
                 ),
               ),
               const SizedBox(height: 12),
@@ -159,7 +162,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       label: 'Current Password',
                       controller: _currentController,
                       obscure: _obscureCurrent,
-                      toggle: () => setState(() => _obscureCurrent = !_obscureCurrent),
+                      toggle: () =>
+                          setState(() => _obscureCurrent = !_obscureCurrent),
                       hint: 'Enter current password',
                     ),
                     const SizedBox(height: 16),
@@ -175,7 +179,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       label: 'Confirm Password',
                       controller: _confirmController,
                       obscure: _obscureConfirm,
-                      toggle: () => setState(() => _obscureConfirm = !_obscureConfirm),
+                      toggle: () =>
+                          setState(() => _obscureConfirm = !_obscureConfirm),
                       hint: 'Re-enter new password',
                     ),
                     const SizedBox(height: 26),
