@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:planova_app/core/constants/app_colors.dart';
+
+import '../models/statisticCardData.dart';
+import '../widgets/statisticCard.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -13,36 +17,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _darkModeOn = false;
   int _selectedIndex = 3;
 
-  static const Color _backgroundColor = Color(0xFFF2F4F7);
-  static const Color _cardColor = Colors.white;
-  static const Color _primaryColor = Color(0xFF5C6BC0);
-  static const Color _textDark = Color(0xFF1A1A2E);
-  static const Color _textGrey = Color(0xFF9E9E9E);
-  static const Color _logoutRed = Color(0xFFE53935);
-
-  final List<_StatisticCardData> _statistics = const [
-    _StatisticCardData(
+  final List<StatisticCardData> _statistics = const [
+    StatisticCardData(
       title: 'Current Streak',
       value: '7 days',
       icon: Icons.local_fire_department,
       iconCircleColor: Color(0xFFFFE0B2),
       iconColor: Color(0xFFEF6C00),
     ),
-    _StatisticCardData(
+    StatisticCardData(
       title: 'Longest Streak',
       value: '15 days',
       icon: Icons.emoji_events,
       iconCircleColor: Color(0xFFE1BEE7),
       iconColor: Color(0xFF6A1B9A),
     ),
-    _StatisticCardData(
+    StatisticCardData(
       title: 'Completed',
       value: '124',
       icon: Icons.check_circle,
       iconCircleColor: Color(0xFFC8E6C9),
       iconColor: Color(0xFF2E7D32),
     ),
-    _StatisticCardData(
+    StatisticCardData(
       title: 'Active Tasks',
       value: '12',
       icon: Icons.task_alt,
@@ -57,61 +54,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-  Widget _buildStatisticCard(_StatisticCardData data) {
-    return Card(
-      color: _cardColor,
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: data.iconCircleColor,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(data.icon, size: 20, color: data.iconColor),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              data.title,
-              style: GoogleFonts.poppins(
-                color: _textGrey,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              data.value,
-              style: GoogleFonts.poppins(
-                color: _textDark,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _backgroundColor,
+      backgroundColor: AppColors.cardColor,
       appBar: AppBar(
-        backgroundColor: _backgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
           'Setting',
           style: GoogleFonts.poppins(
-            color: _textDark,
+            color: AppColors.textDark,
             fontSize: 20,
             fontWeight: FontWeight.w700,
           ),
@@ -159,7 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Text(
                       'Mahmoud Ragab',
                       style: GoogleFonts.poppins(
-                        color: _textDark,
+                        color: AppColors.textDark,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
@@ -168,7 +122,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Text(
                       'Undergraduate Student',
                       style: GoogleFonts.poppins(
-                        color: _textGrey,
+                        color: AppColors.textGrey,
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
@@ -180,7 +134,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Text(
                 'Statistics',
                 style: GoogleFonts.poppins(
-                  color: _textDark,
+                  color: AppColors.textDark,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
@@ -193,13 +147,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
                 shrinkWrap: true,
-                children: _statistics.map(_buildStatisticCard).toList(),
+                children: _statistics.map((data) => buildStatisticCard(data)).toList(),
               ),
               const SizedBox(height: 18),
               Text(
                 'Preferences',
                 style: GoogleFonts.poppins(
-                  color: _textDark,
+                  color: AppColors.textDark,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
@@ -207,7 +161,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(height: 12),
               Card(
                 margin: EdgeInsets.zero,
-                color: _cardColor,
+                color: AppColors.cardColor,
                 elevation: 1,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
@@ -222,7 +176,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       title: Text(
                         'Notifications',
                         style: GoogleFonts.poppins(
-                          color: _textDark,
+                          color: AppColors.textDark,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -230,7 +184,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       subtitle: Text(
                         'Study reminders & alerts',
                         style: GoogleFonts.poppins(
-                          color: _textGrey,
+                          color: AppColors.textGrey,
                           fontSize: 12,
                         ),
                       ),
@@ -247,7 +201,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           size: 20,
                         ),
                       ),
-                      activeColor: _primaryColor,
+                      activeColor: AppColors.primaryColor,
                       value: _notificationsOn,
                       onChanged: (value) {
                         setState(() {
@@ -264,7 +218,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       title: Text(
                         'Dark Mode',
                         style: GoogleFonts.poppins(
-                          color: _textDark,
+                          color: AppColors.textDark,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -272,7 +226,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       subtitle: Text(
                         'Reduce eye strain at night',
                         style: GoogleFonts.poppins(
-                          color: _textGrey,
+                          color: AppColors.textGrey,
                           fontSize: 12,
                         ),
                       ),
@@ -289,7 +243,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           size: 20,
                         ),
                       ),
-                      activeColor: _primaryColor,
+                      activeColor: AppColors.primaryColor,
                       value: _darkModeOn,
                       onChanged: (value) {
                         setState(() {
@@ -319,7 +273,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       title: Text(
                         'Privacy & Security',
                         style: GoogleFonts.poppins(
-                          color: _textDark,
+                          color: AppColors.textDark,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -327,7 +281,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       subtitle: Text(
                         'Manage account & data',
                         style: GoogleFonts.poppins(
-                          color: _textGrey,
+                          color: AppColors.textGrey,
                           fontSize: 12,
                         ),
                       ),
@@ -348,15 +302,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    side: const BorderSide(color: _logoutRed),
-                    foregroundColor: _logoutRed,
+                    side: const BorderSide(color: AppColors.logoutRed),
+                    foregroundColor: AppColors.logoutRed,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                   ),
-                  icon: const Icon(Icons.logout, color: _logoutRed),
+                  icon: const Icon(Icons.logout, color: AppColors.logoutRed),
                   label: Text(
                     'Logout',
                     style: GoogleFonts.poppins(
-                      color: _logoutRed,
+                      color: AppColors.logoutRed,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
@@ -372,9 +326,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onBottomNavTapped,
-        selectedItemColor: _primaryColor,
+        selectedItemColor: AppColors.primaryColor,
         unselectedItemColor: const Color(0xFF9E9E9E),
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.cardColor,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         items: const [
@@ -397,18 +351,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 }
 
-class _StatisticCardData {
-  final String title;
-  final String value;
-  final IconData icon;
-  final Color iconCircleColor;
-  final Color iconColor;
-
-  const _StatisticCardData({
-    required this.title,
-    required this.value,
-    required this.icon,
-    required this.iconCircleColor,
-    required this.iconColor,
-  });
-}
