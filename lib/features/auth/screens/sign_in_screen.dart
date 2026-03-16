@@ -29,7 +29,6 @@ class SignInScreen extends StatelessWidget {
                   isPassword: true,
                   suffixIcon: Icons.visibility_off_outlined
               ),
-
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
