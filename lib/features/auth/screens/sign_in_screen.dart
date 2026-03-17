@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/auth_button.dart';
 import '../screens/sign_up_screen.dart';
+import '../screens/reset_password_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -32,8 +33,20 @@ class SignInScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
-                  child: const Text("Forgot Password?", style: TextStyle(color: Colors.grey, fontSize: 13, decoration: TextDecoration.underline)),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ResetPasswordScreen()),
+                    );
+                  },
+                  child: const Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 13,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                 ),
               ),
 
