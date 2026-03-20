@@ -5,8 +5,9 @@ class TaskItemModel {
   final String priority;
   final bool isDone;
   final VoidCallback? onTap;
-  final DateTime? dueDate;
+  final String? dueDate;
   final String? description;
+  final Color? flagColor;
 
   const TaskItemModel({
     this.title = "",
@@ -15,6 +16,8 @@ class TaskItemModel {
     this.onTap,
     this.dueDate,
     this.description,
+    this.flagColor,
+
   });
 
 
@@ -23,8 +26,9 @@ class TaskItemModel {
     String? priority,
     bool? isDone,
     VoidCallback? onTap,
-    DateTime? dueDate,
+    String? dueDate,
     String? description,
+    Color? flagColor,
   }) {
     return TaskItemModel(
       title: title ?? this.title,

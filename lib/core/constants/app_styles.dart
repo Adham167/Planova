@@ -22,6 +22,16 @@ class AppStyles {
     fontWeight: FontWeight.w700,
     color: AppColors.white,
   );
+  static const TextStyle bold20 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: AppColors.white,
+  );
+  static const TextStyle bold18 = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: AppColors.white,
+  );
   static const TextStyle medium16 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
@@ -30,6 +40,15 @@ class AppStyles {
   static const TextStyle semiBold16 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
+    color: AppColors.white,
+  ); static const TextStyle bold12 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w700,
+    color: AppColors.white,
+  );
+  static const TextStyle bold16 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
     color: AppColors.white,
   );
   static const TextStyle semiBold18 = TextStyle(
