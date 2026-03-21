@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planova_app/features/home/models/task_card_model.dart';
+import 'package:planova_app/features/home/presentation/views/task_overview_view.dart';
 import 'package:planova_app/features/home/presentation/views/widgets/header.dart';
 import 'package:planova_app/features/home/presentation/views/widgets/task_card.dart';
 import 'task_toggle_switch.dart';
@@ -18,7 +19,15 @@ class _TaskOverviewSectionState extends State<TaskOverviewSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Header(title: "Task Overview"),
+        Header(
+          title: "Task Overview",
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => TaskOverviewView()),
+            );
+          },
+        ),
         const SizedBox(height: 8),
         TaskToggleSwitch(
           isPersonalSelected: isPersonalSelected,

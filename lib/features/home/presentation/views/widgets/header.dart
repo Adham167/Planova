@@ -3,8 +3,9 @@ import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/constants/app_styles.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key, required this.title});
+  const Header({super.key, required this.title, this.onTap});
   final String title;
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -15,7 +16,7 @@ class Header extends StatelessWidget {
           style: AppStyles.semiBold16.copyWith(color: AppColors.primaryBlue),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: onTap,
           child: Row(
             children: [
               Text(

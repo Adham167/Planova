@@ -3,6 +3,7 @@ import 'package:percent_indicator/percent_indicator.dart'; // Add this import
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/constants/app_styles.dart';
 import 'package:planova_app/features/home/models/task_card_model.dart';
+import 'package:planova_app/features/home/presentation/views/group_details_view.dart';
 
 class TaskCard extends StatelessWidget {
   final TaskCardModel taskCardModel;
@@ -11,21 +12,29 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.grey300),
-      ),
-      child: Row(
-        children: [
-          _buildIconBox(),
-          const SizedBox(width: 16),
-          Expanded(child: _buildTaskDetails()),
-          _buildTrailingAction(),
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => GroupDetailsView()),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: AppColors.grey300),
+        ),
+        child: Row(
+          children: [
+            _buildIconBox(),
+            const SizedBox(width: 16),
+            Expanded(child: _buildTaskDetails()),
+            _buildTrailingAction(),
+          ],
+        ),
       ),
     );
   }
