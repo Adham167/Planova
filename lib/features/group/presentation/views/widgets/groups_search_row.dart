@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
+import 'package:planova_app/core/constants/app_router.dart';
 
 class GroupsSearchRow extends StatelessWidget {
   final Function(String) onSearch;
 
-  const GroupsSearchRow({
-    super.key,
-    required this.onSearch,
-  });
+  const GroupsSearchRow({super.key, required this.onSearch});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,9 @@ class GroupsSearchRow extends StatelessWidget {
           width: 42,
           height: 42,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              GoRouter.of(context).push(AppRouter.kCreateGroupView);
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.kPrimary,
               elevation: 0,
