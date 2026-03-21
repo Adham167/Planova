@@ -3,8 +3,8 @@ import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/constants/app_styles.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key,required this.title});
-final String title;
+  const Header({super.key, required this.title});
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -12,7 +12,7 @@ final String title;
       children: [
         Text(
           title,
-          style: AppStyles.medium16.copyWith(color: AppColors.primaryBlue),
+          style: AppStyles.semiBold16.copyWith(color: AppColors.primaryBlue),
         ),
         TextButton(
           onPressed: () {},
@@ -20,7 +20,7 @@ final String title;
             children: [
               Text(
                 'View All',
-                style: AppStyles.regular12.copyWith(
+                style: AppStyles.medium12.copyWith(
                   color: AppColors.primaryPurple,
                 ),
               ),

@@ -6,11 +6,7 @@ import 'package:planova_app/features/home/models/task_item_model.dart';
 class TaskItem extends StatelessWidget {
   final TaskItemModel taskItemModel;
 
-  const TaskItem({
-    super.key,
-    required this.taskItemModel,
- 
-  });
+  const TaskItem({super.key, required this.taskItemModel});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +18,9 @@ class TaskItem extends StatelessWidget {
             width: 24,
             height: 24,
             decoration: BoxDecoration(
-              color: taskItemModel.isDone ? AppColors.primaryLightPurple : Colors.transparent,
+              color: taskItemModel.isDone
+                  ? AppColors.primaryLightPurple
+                  : Colors.transparent,
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
                 color: taskItemModel.isDone
@@ -40,8 +38,13 @@ class TaskItem extends StatelessWidget {
             child: Text(
               taskItemModel.title,
               style: AppStyles.medium12.copyWith(
-                color: taskItemModel.isDone ? AppColors.blueGrey : AppColors.darkGrey,
-                decoration: taskItemModel.isDone ? TextDecoration.lineThrough : null,
+                color: taskItemModel.isDone
+                    ? AppColors.blueGrey
+                    : AppColors.darkGrey,
+                decoration: taskItemModel.isDone
+                    ? TextDecoration.lineThrough
+                    : null,
+                decorationColor: AppColors.blueGrey,
               ),
             ),
           ),

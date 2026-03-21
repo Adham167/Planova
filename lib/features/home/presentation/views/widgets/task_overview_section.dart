@@ -46,7 +46,25 @@ class _TaskOverviewSectionState extends State<TaskOverviewSection> {
             progress: 0.6,
           ),
         ),
-        
+
+        TaskCard(
+          taskCardModel: TaskCardModel(
+            title: "Chemistry",
+            sub: "2 of 10 completed",
+            color: Colors.green.shade100,
+            iconText: "C",
+            progress: 0.2,
+          ),
+        ),
+        TaskCard(
+          taskCardModel: TaskCardModel(
+            title: "Chemistry",
+            sub: "2 of 10 completed",
+            color: Colors.green.shade100,
+            iconText: "C",
+            progress: 0.2,
+          ),
+        ),
         TaskCard(
           taskCardModel: TaskCardModel(
             title: "Chemistry",

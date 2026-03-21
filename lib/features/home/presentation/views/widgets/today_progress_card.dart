@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/constants/app_styles.dart';
+import 'package:planova_app/features/home/presentation/views/widgets/progress_circle_indicator.dart';
 
 class TodayProgressCard extends StatelessWidget {
   const TodayProgressCard({super.key});
@@ -45,26 +45,7 @@ class TodayProgressCard extends StatelessWidget {
               ),
             ],
           ),
-
-          CircularPercentIndicator(
-            radius: 55.0,
-            lineWidth: 12.0,
-            animation: true,
-            percent: 0.85,
-            center: const Text(
-              "85%",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-                color: AppColors.white,
-              ),
-            ),
-            circularStrokeCap: CircularStrokeCap.round,
-            progressColor: AppColors.white,
-            backgroundColor: AppColors.white.withOpacity(0.3),
-            animationDuration: 1200,
-            curve: Curves.easeInOut,
-          ),
+          ProgressCircleIndicator(),
         ],
       ),
     );
