@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:planova_app/core/constants/assets.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/circle_stepper.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/step_label.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/step_line.dart';
+import 'package:planova_app/features/group/presentation/views/create_groups/widgets/circle_stepper.dart';
+import 'package:planova_app/features/group/presentation/views/create_groups/widgets/step_label.dart';
+import 'package:planova_app/features/group/presentation/views/create_groups/widgets/step_line.dart';
 
 class StepperWidget extends StatelessWidget {
   const StepperWidget({super.key, required this.currentStep});

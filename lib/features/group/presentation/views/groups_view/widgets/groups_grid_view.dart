@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planova_app/features/group/presentation/data/models/group_item.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/group_grid_card.dart';
+import 'package:planova_app/features/group/presentation/views/groups_view/widgets/group_grid_card.dart';
 
 class GroupsGridView extends StatelessWidget {
   final List<GroupItem> groups;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/constants/app_styles.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/preview_card.dart';
+import 'package:planova_app/features/group/presentation/views/edit_groups/widgets/preview_card.dart';
 
 class AppearanceBody extends StatelessWidget {
   const AppearanceBody({
@@ -70,6 +70,9 @@ class AppearanceBody extends StatelessWidget {
           SizedBox(height: 16),
         ],
       ),
+    
     );
   }
 }
+
+

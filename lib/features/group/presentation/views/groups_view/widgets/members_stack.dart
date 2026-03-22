@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class MembersStack extends StatelessWidget {
   final List<String> initials;
   final int extra;
-  const MembersStack({required this.initials, required this.extra});
+  const MembersStack({super.key, required this.initials, required this.extra});
 
   @override
   Widget build(BuildContext context) {

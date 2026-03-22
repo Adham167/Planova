@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/features/group/presentation/data/models/group_item.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/groups_activity_chips.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/groups_grid_view.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/groups_header.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/groups_list_view.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/groups_scope_tabs.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/groups_search_row.dart';
+import 'package:planova_app/features/group/presentation/views/groups_view/widgets/groups_activity_chips.dart';
+import 'package:planova_app/features/group/presentation/views/groups_view/widgets/groups_grid_view.dart';
+import 'package:planova_app/features/group/presentation/views/groups_view/widgets/groups_header.dart';
+import 'package:planova_app/features/group/presentation/views/groups_view/widgets/groups_list_view.dart';
+import 'package:planova_app/features/group/presentation/views/groups_view/widgets/groups_scope_tabs.dart';
+import 'package:planova_app/features/group/presentation/views/groups_view/widgets/groups_search_row.dart';
 
 class GroupsScreenBody extends StatefulWidget {
   const GroupsScreenBody({super.key});
@@ -105,7 +105,7 @@ class _GroupsScreenBodyState extends State<GroupsScreenBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.kBg,
+      backgroundColor: AppColors.kBackGround,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(14, 8, 14, 12),

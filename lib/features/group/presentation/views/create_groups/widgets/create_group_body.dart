@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:planova_app/core/widgets/custom_button.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/appearance_body.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/members_body.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/stepper_widget.dart';
+import 'package:planova_app/features/group/presentation/views/create_groups/widgets/appearance_body.dart';
+import 'package:planova_app/features/group/presentation/views/widgets/details_body.dart';
+import 'package:planova_app/features/group/presentation/views/create_groups/widgets/members_body.dart';
+import 'package:planova_app/features/group/presentation/views/create_groups/widgets/stepper_widget.dart';
 
 class CreateGroupBody extends StatefulWidget {
   const CreateGroupBody({super.key});
@@ -61,10 +62,11 @@ class _CreateGroupBodyState extends State<CreateGroupBody> {
                 });
               },
               children: [
-                // Align(
-                //   alignment: AlignmentGeometry.topCenter,
-                //   child: const DetailsBody(),
-                // ),
+                Align(
+                  alignment: AlignmentGeometry.topCenter,
+                  child: DetailsBody(),
+                ),
+                
                 AppearanceBody(
                   colors: colors,
                   selectedColor: selectedColor,
@@ -87,5 +89,6 @@ class _CreateGroupBodyState extends State<CreateGroupBody> {
         ],
       ),
     );
+  
   }
 }

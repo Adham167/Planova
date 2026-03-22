@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/widgets/custom_text_field.dart';
-import 'package:planova_app/features/group/presentation/views/widgets/preview_card.dart';
+import 'package:planova_app/features/group/presentation/views/edit_groups/widgets/preview_card.dart';
 
 class MembersBody extends StatelessWidget {
   const MembersBody({super.key, required this.selectedColor});

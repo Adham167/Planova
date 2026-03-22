@@ -5,7 +5,7 @@ class AvatarSquare extends StatelessWidget {
   final Color color;
   final String text;
   final double size;
-  const AvatarSquare({
+  const AvatarSquare({super.key, 
     required this.color,
     required this.text,
     this.size = 34,
