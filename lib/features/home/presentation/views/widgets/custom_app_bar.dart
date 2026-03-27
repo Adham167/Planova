@@ -24,9 +24,9 @@ class CustomAppBar extends StatelessWidget {
             const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('Good Morning', style: AppStyles.medium14),
-                Text('Hla!', style: AppStyles.semiBold20),
+              children: [
+                Text('Good Morning', style: AppStyles.medium14(context)),
+                 Text('Hla!', style: AppStyles.semiBold20(context)),
               ],
             ),
           ],
@@ -49,7 +49,7 @@ class CustomAppBar extends StatelessWidget {
                   const SizedBox(width: 10),
                   Text(
                     "2",
-                    style: AppStyles.regular12.copyWith(
+                    style: AppStyles.regular12(context).copyWith(
                       color: AppColors.orange,
                     ),
                   ),

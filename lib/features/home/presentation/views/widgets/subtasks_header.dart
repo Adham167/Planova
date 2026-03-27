@@ -12,7 +12,7 @@ class SubtasksHeader extends StatelessWidget {
       children: [
         Text(
           "Subtasks",
-          style: AppStyles.medium16.copyWith(
+          style: AppStyles.medium16(context).copyWith(
             color: AppColors.primaryBlue,
           ),
         ),

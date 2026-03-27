@@ -37,7 +37,7 @@ class TaskItem extends StatelessWidget {
           Expanded(
             child: Text(
               taskItemModel.title,
-              style: AppStyles.medium12.copyWith(
+              style: AppStyles.medium12(context).copyWith(
                 color: taskItemModel.isDone
                     ? AppColors.blueGrey
                     : AppColors.darkGrey,
@@ -48,13 +48,13 @@ class TaskItem extends StatelessWidget {
               ),
             ),
           ),
-          _buildPriorityTag(taskItemModel.priority),
+          _buildPriorityTag(taskItemModel.priority, context),
         ],
       ),
     );
   }
 
-  Widget _buildPriorityTag(String priority) {
+  Widget _buildPriorityTag(String priority, BuildContext context) {
     Color bgColor;
     Color textColor;
 
@@ -82,7 +82,7 @@ class TaskItem extends StatelessWidget {
       ),
       child: Text(
         priority,
-        style: AppStyles.regular10.copyWith(color: textColor),
+        style: AppStyles.regular10(context).copyWith(color: textColor),
       ),
     );
   }

@@ -48,7 +48,7 @@ class TaskToggleSwitch extends StatelessWidget {
                   ),
                 ),
               ),
-              Row(children: [_item("Personal", true), _item("Team", false)]),
+              Row(children: [_item("Personal", true, context), _item("Team", false, context)]),
             ],
           );
         },
@@ -56,7 +56,7 @@ class TaskToggleSwitch extends StatelessWidget {
     );
   }
 
-  Widget _item(String title, bool isPersonal) {
+  Widget _item(String title, bool isPersonal, BuildContext context) {
     final active = isPersonalSelected == isPersonal;
 
     return Expanded(
@@ -66,7 +66,7 @@ class TaskToggleSwitch extends StatelessWidget {
         child: Center(
           child: AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 200),
-            style: AppStyles.semiBold16.copyWith(
+            style: AppStyles.semiBold16(context).copyWith(
               color: active ? AppColors.white : AppColors.primaryBlue,
             ),
             child: Text(title),

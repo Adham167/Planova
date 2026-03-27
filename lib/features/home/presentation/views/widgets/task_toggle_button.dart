@@ -29,7 +29,7 @@ class TaskToggleButton extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: AppStyles.semiBold16.copyWith(
+              style: AppStyles.semiBold16(context).copyWith(
                 color: isActive ? AppColors.white : AppColors.blueGrey,
               ),
             ),

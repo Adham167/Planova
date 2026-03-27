@@ -42,7 +42,7 @@ class _GroupDetailsViewState extends State<GroupDetailsView> {
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
-        title: const Text("Group Details", style: AppStyles.semiBold18),
+        title:  Text("Group Details", style: AppStyles.semiBold18(context)),
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 16),

@@ -45,14 +45,14 @@ class GroupProgressCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: AppStyles.semiBold16.copyWith(color: Colors.white)),
-                  Text(subtitle, style: AppStyles.regular12.copyWith(color: Colors.white70)),
+                  Text(title, style: AppStyles.semiBold16(context).copyWith(color: Colors.white)),
+                  Text(subtitle, style: AppStyles.regular12(context).copyWith(color: Colors.white70)),
                 ],
               )
             ],
           ),
           const SizedBox(height: 16),
-          Text("Progress", style: AppStyles.regular12.copyWith(color: Colors.white)),
+          Text("Progress", style: AppStyles.regular12(context).copyWith(color: Colors.white)),
           const SizedBox(height: 6),
           Slider(
             value: progress,
@@ -62,7 +62,7 @@ class GroupProgressCard extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: Text("${(progress * 100).toInt()}%", style: AppStyles.regular12.copyWith(color: Colors.white)),
+            child: Text("${(progress * 100).toInt()}%", style: AppStyles.regular12(context).copyWith(color: Colors.white)),
           )
         ],
       ),

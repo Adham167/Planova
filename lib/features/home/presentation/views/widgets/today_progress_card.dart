@@ -21,16 +21,16 @@ class TodayProgressCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Today's Progress", style: AppStyles.medium16),
+              Text("Today's Progress", style: AppStyles.medium16(context)),
               const SizedBox(height: 12),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.baseline,
                 textBaseline: TextBaseline.alphabetic,
                 children: [
-                  const Text("1 ", style: AppStyles.bold32),
+                   Text("1 ", style: AppStyles.bold32(context)),
                   Text(
                     "/ 3",
-                    style: AppStyles.bold24.copyWith(
+                    style: AppStyles.bold24(context).copyWith(
                       color: AppColors.white.withOpacity(0.8),
                     ),
                   ),
@@ -39,7 +39,7 @@ class TodayProgressCard extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 "tasks Completed",
-                style: AppStyles.medium14.copyWith(
+                style: AppStyles.medium14(context).copyWith(
                   color: AppColors.white.withOpacity(0.7),
                 ),
               ),

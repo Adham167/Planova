@@ -29,17 +29,17 @@ class TaskCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            _buildIconBox(),
+            _buildIconBox(context),
             const SizedBox(width: 16),
-            Expanded(child: _buildTaskDetails()),
-            _buildTrailingAction(),
+            Expanded(child: _buildTaskDetails(context)),
+            _buildTrailingAction( context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildTrailingAction() {
+  Widget _buildTrailingAction(BuildContext context,) {
     if (taskCardModel.isTeam) {
       return const Icon(
         Icons.arrow_forward_ios,
@@ -56,7 +56,7 @@ class TaskCard extends StatelessWidget {
       animationDuration: 1000,
       center: Text(
         "${(taskCardModel.progress * 100).toInt()}%",
-        style: AppStyles.medium12.copyWith(color: AppColors.primaryBlue),
+        style: AppStyles.medium12(context).copyWith(color: AppColors.primaryBlue),
       ),
       circularStrokeCap: CircularStrokeCap.round,
       backgroundColor: AppColors.grey100,
@@ -64,7 +64,7 @@ class TaskCard extends StatelessWidget {
     );
   }
 
-  Widget _buildIconBox() {
+  Widget _buildIconBox(BuildContext context) {
     return Container(
       height: 50,
       width: 50,
@@ -75,23 +75,23 @@ class TaskCard extends StatelessWidget {
       child: Center(
         child: Text(
           taskCardModel.iconText,
-          style: AppStyles.semiBold20.copyWith(color: AppColors.white),
+          style: AppStyles.semiBold20(context).copyWith(color: AppColors.white),
         ),
       ),
     );
   }
 
-  Widget _buildTaskDetails() {
+  Widget _buildTaskDetails(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           taskCardModel.title,
-          style: AppStyles.medium14.copyWith(color: AppColors.primaryBlue),
+          style: AppStyles.medium14(context).copyWith(color: AppColors.primaryBlue),
         ),
         Text(
           taskCardModel.sub,
-          style: AppStyles.regular10.copyWith(
+          style: AppStyles.regular10(context).copyWith(
             color: const Color(0xff848A94).withOpacity(0.89),
           ),
         ),
@@ -105,7 +105,7 @@ class TaskCard extends StatelessWidget {
                 color: AppColors.primaryBlue.withOpacity(0.37),
               ),
               const SizedBox(width: 4),
-              const Text("3 Members", style: AppStyles.medium10),
+               Text("3 Members", style: AppStyles.medium10(context)),
             ],
           ),
         ],

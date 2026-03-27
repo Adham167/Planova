@@ -1,81 +1,125 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
+import 'font_helper.dart';
 
 class AppStyles {
-  static const TextStyle medium14 = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    color: AppColors.blueGrey,
-  );
-  static const TextStyle medium12 = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w500,
-    color: AppColors.blueGrey,
-  );
-  static const TextStyle bold32 = TextStyle(
-    fontSize: 32,
-    fontWeight: FontWeight.w700,
-    color: AppColors.white,
-  );
-  static const TextStyle bold24 = TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.w700,
-    color: AppColors.white,
-  );
-  static const TextStyle bold20 = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w700,
-    color: AppColors.white,
-  );
-  static const TextStyle bold18 = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w700,
-    color: AppColors.white,
-  );
-  static const TextStyle medium16 = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-    color: AppColors.white,
-  );
-  static const TextStyle semiBold16 = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    color: AppColors.white,
-  ); static const TextStyle bold12 = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w700,
-    color: AppColors.white,
-  );
-  static const TextStyle bold16 = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w700,
-    color: AppColors.white,
-  );
-  static const TextStyle semiBold18 = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w600,
-    color: AppColors.primaryBlue,
-  );
+  static TextStyle medium14(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 14),
+      fontWeight: FontWeight.w500,
+      color: AppColors.blueGrey,
+    );
+  }
 
-  static const TextStyle semiBold20 = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-    color: AppColors.primaryBlue,
-  );
+  static TextStyle medium12(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 12),
+      fontWeight: FontWeight.w500,
+      color: AppColors.blueGrey,
+    );
+  }
 
-  static final TextStyle regular12 = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: const Color(0xff848A94).withOpacity(0.8),
-  );
-  static const TextStyle regular10 = TextStyle(
-    fontSize: 10,
-    fontWeight: FontWeight.w400,
-    color: AppColors.orange,
-  );
-  static const TextStyle medium10 = TextStyle(
-    fontSize: 10,
-    fontWeight: FontWeight.w500,
-    color: AppColors.primaryBlue,
-  );
+  static TextStyle bold32(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 32),
+      fontWeight: FontWeight.w700,
+      color: AppColors.white,
+    );
+  }
+
+  static TextStyle bold24(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 24),
+      fontWeight: FontWeight.w700,
+      color: AppColors.white,
+    );
+  }
+
+  static TextStyle bold20(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 20),
+      fontWeight: FontWeight.w700,
+      color: AppColors.white,
+    );
+  }
+
+  static TextStyle bold18(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 18),
+      fontWeight: FontWeight.w700,
+      color: AppColors.white,
+    );
+  }
+
+  static TextStyle medium16(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 16),
+      fontWeight: FontWeight.w500,
+      color: AppColors.white,
+    );
+  }
+
+  static TextStyle semiBold16(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 16),
+      fontWeight: FontWeight.w600,
+      color: AppColors.white,
+    );
+  }
+
+  static TextStyle bold12(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 12),
+      fontWeight: FontWeight.w700,
+      color: AppColors.white,
+    );
+  }
+
+  static TextStyle bold16(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 16),
+      fontWeight: FontWeight.w700,
+      color: AppColors.white,
+    );
+  }
+
+  static TextStyle semiBold18(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 18),
+      fontWeight: FontWeight.w600,
+      color: AppColors.primaryBlue,
+    );
+  }
+
+  static TextStyle semiBold20(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 20),
+      fontWeight: FontWeight.w600,
+      color: AppColors.primaryBlue,
+    );
+  }
+
+  static TextStyle regular12(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 12),
+      fontWeight: FontWeight.w400,
+      color: const Color(0xff848A94).withOpacity(0.8),
+    );
+  }
+
+  static TextStyle regular10(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 10),
+      fontWeight: FontWeight.w400,
+      color: AppColors.orange,
+    );
+  }
+
+  static TextStyle medium10(BuildContext context) {
+    return TextStyle(
+      fontSize: FontHelper.scale(context, 10),
+      fontWeight: FontWeight.w500,
+      color: AppColors.primaryBlue,
+    );
+  }
 }

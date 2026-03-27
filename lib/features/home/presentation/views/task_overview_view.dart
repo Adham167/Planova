@@ -24,7 +24,7 @@ class _TaskOverviewViewState extends State<TaskOverviewView> {
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
-        title: const Text("Task Overview", style: AppStyles.semiBold18),
+        title:  Text("Task Overview", style: AppStyles.semiBold18(context)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),

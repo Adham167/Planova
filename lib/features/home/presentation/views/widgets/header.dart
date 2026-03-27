@@ -13,7 +13,7 @@ class Header extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppStyles.semiBold16.copyWith(color: AppColors.primaryBlue),
+          style: AppStyles.semiBold16(context).copyWith(color: AppColors.primaryBlue),
         ),
         TextButton(
           onPressed: onTap,
@@ -21,7 +21,7 @@ class Header extends StatelessWidget {
             children: [
               Text(
                 'View All',
-                style: AppStyles.medium12.copyWith(
+                style: AppStyles.medium12(context).copyWith(
                   color: AppColors.primaryPurple,
                 ),
               ),

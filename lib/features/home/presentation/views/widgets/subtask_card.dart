@@ -94,7 +94,7 @@ class _SubtaskCardState extends State<SubtaskCard> {
                 children: [
                   AnimatedDefaultTextStyle(
                     duration: const Duration(milliseconds: 200),
-                    style: AppStyles.medium14.copyWith(
+                    style: AppStyles.medium14(context).copyWith(
                       color: isCompleted
                           ? AppColors.mediumGrey
                           : AppColors.primaryBlue,
@@ -115,7 +115,7 @@ class _SubtaskCardState extends State<SubtaskCard> {
                       const SizedBox(width: 4),
                       Text(
                         widget.date,
-                        style: AppStyles.regular10.copyWith(
+                        style: AppStyles.regular10(context).copyWith(
                           color: AppColors.mediumGrey,
                         ),
                       ),

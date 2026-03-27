@@ -46,7 +46,7 @@ class GroupDetailsHeader extends StatelessWidget {
                 child: Center(
                   child: Text(
                     iconText,
-                    style: AppStyles.bold20.copyWith(color: AppColors.white),
+                    style: AppStyles.bold20(context).copyWith(color: AppColors.white),
                   ),
                 ),
               ),
@@ -54,10 +54,10 @@ class GroupDetailsHeader extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: AppStyles.bold18),
+                  Text(title, style: AppStyles.bold18(context)),
                   Text(
                     completionText,
-                    style: AppStyles.regular10.copyWith(
+                    style: AppStyles.regular10(context).copyWith(
                       color: AppColors.white.withOpacity(0.87),
                     ),
                   ),
@@ -71,7 +71,7 @@ class GroupDetailsHeader extends StatelessWidget {
             children: [
               Text(
                 "Progress",
-                style: AppStyles.regular12.copyWith(color: AppColors.white),
+                style: AppStyles.regular12(context).copyWith(color: AppColors.white),
               ),
               TweenAnimationBuilder<double>(
                 tween: Tween<double>(begin: 0, end: progress),
@@ -79,7 +79,7 @@ class GroupDetailsHeader extends StatelessWidget {
                 builder: (context, value, child) {
                   return Text(
                     "${(value * 100).toInt()}%",
-                    style: AppStyles.bold12,
+                    style: AppStyles.bold12(context),
                   );
                 },
               ),
