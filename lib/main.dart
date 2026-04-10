@@ -22,12 +22,18 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       routerConfig: AppRouter.router,
       theme: ThemeData(
-        fontFamily: 'Poppins',
+        primaryColor: const Color(0xFF9BA3EB),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF9BA3EB),
+          primary: const Color(0xFF9BA3EB),
+        ),
         scaffoldBackgroundColor: AppColors.grey50,
         appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.grey50,
           elevation: 0,
         ),
+        useMaterial3: true,
+        fontFamily: 'Poppins',
       ),
     );
   }
