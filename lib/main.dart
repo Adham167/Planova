@@ -1,9 +1,13 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
-import 'package:planova_app/features/home/presentation/views/home_view.dart';
+import 'package:planova_app/core/constants/app_router.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(enabled: !kReleaseMode, builder: (context) => const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,7 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
+      routerConfig: AppRouter.router,
       theme: ThemeData(
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: AppColors.grey50,
@@ -20,8 +29,6 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      home: HomeView(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
