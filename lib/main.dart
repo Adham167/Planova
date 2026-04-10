@@ -1,12 +1,16 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/constants/app_router.dart';
 
 void main() {
   runApp(
-    DevicePreview(enabled: !kReleaseMode, builder: (context) => const MyApp()),
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => const MyApp(),
+    ),
   );
 }
 
@@ -17,23 +21,33 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+
+      // Device Preview
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
+
+      // Routing
       routerConfig: AppRouter.router,
+
+      // Theme
       theme: ThemeData(
-        primaryColor: const Color(0xFF9BA3EB),
+        useMaterial3: true,
+
+        // Colors
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF9BA3EB),
-          primary: const Color(0xFF9BA3EB),
+          seedColor: AppColors.kPrimary,
+          primary: AppColors.kPrimary,
         ),
-        scaffoldBackgroundColor: AppColors.grey50,
+        scaffoldBackgroundColor: AppColors.kBackGround,
+
         appBarTheme: const AppBarTheme(
-          backgroundColor: AppColors.grey50,
+          backgroundColor: AppColors.kBackGround,
           elevation: 0,
         ),
-        useMaterial3: true,
-        fontFamily: 'Poppins',
+
+        // Fonts (أفضل من fontFamily العادي)
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
     );
   }
