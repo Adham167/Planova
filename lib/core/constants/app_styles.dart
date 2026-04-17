@@ -124,7 +124,6 @@ class AppStyles {
     );
   }
 
-  // Static styles (main) - ثابتة مش بتحتاج context
   static const styleSemiBold18 = TextStyle(
     color: AppColors.kDarkBlue,
     fontSize: 18,
@@ -150,7 +149,7 @@ class AppStyles {
   );
 
   static const styleRegular12 = TextStyle(
-    color: AppColors.kMiduemGrey,
+    color: AppColors.mediumGrey,
     fontSize: 12,
     fontWeight: FontWeight.w400,
   );

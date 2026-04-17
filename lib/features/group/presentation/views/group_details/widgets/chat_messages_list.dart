@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:planova_app/features/group/presentation/views/group_details/widgets/chat_message_card.dart';
 
 class ChatMessagesList extends StatelessWidget {
-  const ChatMessagesList();
+  const ChatMessagesList({super.key});
 
   @override
   Widget build(BuildContext context) {

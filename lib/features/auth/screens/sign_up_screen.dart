@@ -68,10 +68,10 @@ class SignUpScreen extends StatelessWidget {
                     const Text(
                       "Terms & Conditions",
                       style: TextStyle(
-                        color: const Color(0xFF9BA4FF),
+                        color:  Color(0xFF9BA4FF),
                         fontSize: 13,
                         decoration: TextDecoration.underline,
-                        decorationColor: const Color(0xFF9BA4FF),
+                        decorationColor:  Color(0xFF9BA4FF),
                         decorationThickness: 1,
                       ),
                     ),

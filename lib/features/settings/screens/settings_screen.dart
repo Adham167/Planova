@@ -204,7 +204,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           size: 20,
                         ),
                       ),
-                      activeColor: AppColors.primaryColor,
+                      activeColor: AppColors.primaryLightPurple,
                       value: _notificationsOn,
                       onChanged: (value) {
                         setState(() {

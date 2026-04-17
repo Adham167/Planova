@@ -12,7 +12,7 @@ class CircleStepper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = isActive ? AppColors.kPrimary : AppColors.kMiduemGrey;
+    Color color = isActive ? AppColors.kPrimary : AppColors.mediumGrey;
 
     return Container(
       height: 36,

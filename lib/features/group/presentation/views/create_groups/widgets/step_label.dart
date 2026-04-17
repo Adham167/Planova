@@ -22,7 +22,7 @@ class StepLabel extends StatelessWidget {
     return Text(
       text,
       style: AppStyles.styleMedium12.copyWith(
-        color: active ? AppColors.kPrimary : AppColors.kMiduemGrey,
+        color: active ? AppColors.kPrimary : AppColors.mediumGrey,
       ),
     );
   }

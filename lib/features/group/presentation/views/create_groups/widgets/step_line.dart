@@ -11,7 +11,7 @@ class StepLine extends StatelessWidget {
     return Expanded(
       child: Container(
         height: 2,
-        color: isActive ? AppColors.kPrimary : AppColors.kMiduemGrey,
+        color: isActive ? AppColors.kPrimary : AppColors.mediumGrey,
       ),
     );
   }

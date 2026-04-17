@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
 
 class SquarePlusButton extends StatelessWidget {
-  const SquarePlusButton();
+  const SquarePlusButton({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -6,6 +6,17 @@ class AppColors {
   static const Color primaryPurple = Color(0xFF8764FF);
   static const Color primaryLightPurple = Color(0xFF9A9AFF);
   static const kPrimary = Color(0xFF9A9AFF);
+  // Secondary
+  static const primaryColor = Color(0xFF5C6BC0);
+  static const Color grey350 = Color(0xFFE7E7E7);
+  static const Color yellowSoft = Color(0xFFFFECCC);
+  static const Color orange = Color(0xFFFFA000);
+  static const Color blueGrey = Color(0xFF94A3B8);
+  static const Color darkGrey = Color(0xFF2C2C2E);
+  static const Color greenBackground = Color(0xFFCFFFE1);
+  static const Color redBackground = Color(0xFFFFDFDF);
+  static const kDarkBlue = Color(0xFF002055);
+  static const kWhite = Color(0xFFFFFFFF);
 
   // Backgrounds
   static const Color backgroundLight = Color(0xFFF2F4F5);
@@ -13,6 +24,7 @@ class AppColors {
   static const kBackGround = Color(0xFFF7F7F9);
   static const backgroundColor = Color(0xFFF2F4F7);
   static const cardColor = Colors.white;
+  static const Color mediumGrey = Color(0xFF828486);
 
   // Basic
   static const Color white = Color(0xFFFFFFFF);

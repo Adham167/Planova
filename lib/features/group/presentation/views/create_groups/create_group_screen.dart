@@ -19,7 +19,7 @@ class CreateGroupView extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pop();
           },
-          icon: Icon(Icons.arrow_back_ios, color: AppColors.kMiduemGrey),
+          icon: Icon(Icons.arrow_back_ios, color: AppColors.mediumGrey),
         ),
         title: Text("Create Group", style: AppStyles.styleSemiBold18),
       ),
