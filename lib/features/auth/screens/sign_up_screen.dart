@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/auth_button.dart';
-import '../screens/sign_in_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -115,11 +115,8 @@ class SignUpScreen extends StatelessWidget {
         const Text("Already Have an Account ? ", style: TextStyle(color: Colors.grey, fontSize: 13)),
         GestureDetector(
           onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const SignInScreen()),
-            );
-          },
+             context.go('/signIn'); 
+              },
           child: const Text(
             "Sign In",
             style: TextStyle(

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/auth_button.dart';
-import '../screens/sign_up_screen.dart';
-import '../screens/reset_password_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -34,10 +35,7 @@ class SignInScreen extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ResetPasswordScreen()),
-                    );
+                    context.push('/resetPassword');
                   },
                   child: const Text(
                     "Forgot Password?",
@@ -52,7 +50,13 @@ class SignInScreen extends StatelessWidget {
 
               const Spacer(),
 
-              AuthButton(text: "Sign In", onPressed: () {}),
+              AuthButton(
+                    text: "Sign In",
+                     onPressed: () {
+                  context.read<AuthProvider>().login(); 
+              context.go('/'); 
+                     },
+              ),
 
               const SizedBox(height: 20),
               _buildOrDivider(),
@@ -86,10 +90,7 @@ class SignInScreen extends StatelessWidget {
         const Text("Don't Have an Account ? ", style: TextStyle(color: Colors.grey, fontSize: 13)),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SignUpScreen()),
-            );
+            context.push('/signUp');
           },
           child: const Text(
             "Sign Up",
