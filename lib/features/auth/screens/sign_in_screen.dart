@@ -33,9 +33,12 @@ class _SignInScreenState extends State<SignInScreen> {
 
   if (!mounted) return;
 
+  await context.read<AuthProvider>().login();
+
   setState(() => isLoading = false);
 
-  context.read<AuthProvider>().login();
+  if (!mounted) return;
+
   context.go('/');
 }
 
