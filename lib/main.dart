@@ -16,7 +16,7 @@ void main()async {
   runApp(
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
-      child: DevicePreview(enabled: false, builder: (context) => const MyApp()),
+      child: DevicePreview(enabled: true, builder: (context) => const MyApp()),
     ),
   );
 }
