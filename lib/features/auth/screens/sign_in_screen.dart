@@ -4,6 +4,8 @@ import '../widgets/auth_button.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -20,29 +22,43 @@ class _SignInScreenState extends State<SignInScreen> {
   bool isLoading = false;
 
   void handleLogin() async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please enter email & password")),
+    if (emailController.text.trim().isEmpty ||
+        passwordController.text.isEmpty) {
+      showTopSnackBar(
+        Overlay.of(context),
+        const CustomSnackBar.info(message: "Please enter email & password"),
       );
       return;
     }
 
-    setState(() => isLoading = true);
+    try {
+      final currentContext = context;
 
-    await Future.delayed(const Duration(seconds: 2));
+      await currentContext.read<AuthProvider>().login(
+        email: emailController.text.trim(),
+        password: passwordController.text,
+      );
 
-    if (!mounted) return;
+      if (!currentContext.mounted) return;
 
-    await context.read<AuthProvider>().login(
-      email: emailController.text.trim(),
-      password: passwordController.text,
-    );
+      final auth = currentContext.read<AuthProvider>();
+      if (auth.isEmailVerified) {
+        currentContext.go('/');
+      } else {
+        currentContext.go(
+          '/verifyCode',
+          extra: {'email': emailController.text.trim(), 'fullName': 'User'},
+        );
+      }
+    } catch (e) {
+      if (!context.mounted) return;
 
-    setState(() => isLoading = false);
-
-    if (!mounted) return;
-
-    context.go('/');
+      final errorMessage = context.read<AuthProvider>().getErrorMessage(e);
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(message: errorMessage),
+      );
+    }
   }
 
   @override
@@ -112,8 +128,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
               const Spacer(),
 
-              isLoading
-                  ? const CircularProgressIndicator()
+              context.watch<AuthProvider>().isLoading
+                  ? const CircularProgressIndicator(color: Color(0xFF9BA4FF))
                   : AuthButton(text: "Sign In", onPressed: handleLogin),
 
               const SizedBox(height: 20),

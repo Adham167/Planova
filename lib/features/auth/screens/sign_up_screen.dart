@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/auth_button.dart';
 import '../providers/auth_provider.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -58,18 +61,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       } catch (e) {
         if (!context.mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-          backgroundColor: Colors.redAccent,
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.only(
-            bottom: MediaQuery.of(context).size.height - 120,
-            left: 20,
-            right: 20,
-          ),
-        ),
-      );
+        final errorMessage = context.read<AuthProvider>().getErrorMessage(e);
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(message: errorMessage),
+        );
+        ;
       }
     }
   }
@@ -117,8 +114,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     hint: "Email Address",
                     icon: Icons.email_outlined,
                     validator: (val) {
-                      if (val == null || !val.contains('@'))
-                        return "Enter a valid email" ;
+                      if (val == null || !val.contains('@')) {
+                        return "Enter a valid email";
+                      }
                       return null;
                     },
                   ),
