@@ -12,28 +12,38 @@ class AuthProvider extends ChangeNotifier {
   bool get isLoggedIn => _auth.currentUser != null;
   bool get isEmailVerified => _auth.currentUser?.emailVerified ?? false;
 
-  String getErrorMessage(dynamic e) {
-    if (e is FirebaseAuthException) {
-      switch (e.code) {
-        case 'invalid-email':
-          return "The email address is badly formatted.";
-        case 'user-disabled':
-          return "This user account has been disabled.";
-        case 'user-not-found':
-          return "No user found with this email.";
-        case 'wrong-password':
-          return "Incorrect password, please try again.";
-        case 'email-already-in-use':
-          return "This email is already in use.";
-        case 'weak-password':
-          return "The password provided is too weak.";
-        default:
-          return "An unexpected error occurred. Please try again.";
-      }
-    }
-    return e.toString();
-  }
+  Map<String, dynamic>? _userData;
+Map<String, dynamic>? get userData => _userData;
 
+ String getErrorMessage(dynamic e) {
+  if (e is FirebaseAuthException) {
+    switch (e.code) {
+      case 'invalid-email':
+        return "Invalid email format. Example: example@gmail.com";
+        
+      case 'user-disabled':
+        return "This user account has been disabled.";
+      
+      case 'user-not-found':
+      case 'wrong-password':
+      case 'invalid-credential':
+        return "Invalid email or password. Please try again.";
+
+      case 'email-already-in-use':
+        return "This email is already in use.";
+      
+      case 'weak-password':
+        return "The password provided is too weak.";
+        
+      case 'too-many-requests':
+        return "Too many failed attempts. Please try again later.";
+        
+      default:
+        return "An unexpected error occurred. Please try again.";
+    }
+  }
+  return e.toString();
+}
   Future<void> signUp({required String email, required String password}) async {
     _setLoading(true);
     try {
@@ -63,6 +73,7 @@ class AuthProvider extends ChangeNotifier {
         'profile_pic_url': '',
         'bio_title': 'Undergraduate Student',
         'created_at': FieldValue.serverTimestamp(),
+        'passwordChangedAt': FieldValue.serverTimestamp(),
         'statistics': {
           'current_streak': 0,
           'longest_streak': 0,
@@ -120,4 +131,62 @@ class AuthProvider extends ChangeNotifier {
     _isLoading = value;
     notifyListeners();
   }
+
+  Future<void> sendPasswordReset(String email) async {
+  _setLoading(true);
+  try {
+    await _auth.sendPasswordResetEmail(email: email);
+  } catch (e) {
+    throw getErrorMessage(e);
+  } finally {
+    _setLoading(false);
+  }
 }
+
+Future<void> changePassword({required String oldPassword, required String newPassword}) async {
+  _setLoading(true);
+  try {
+    final user = _auth.currentUser;
+    if (user == null) throw "User not found";
+
+    AuthCredential credential = EmailAuthProvider.credential(
+      email: user.email!,
+      password: oldPassword,
+    );
+
+    await user.reauthenticateWithCredential(credential);
+    await user.updatePassword(newPassword);
+
+    DateTime now = DateTime.now();
+    await _firestore.collection('users').doc(user.uid).update({
+      'passwordChangedAt': now,
+    });
+
+    if (_userData != null) {
+      _userData!['passwordChangedAt'] = Timestamp.fromDate(now); 
+      notifyListeners();
+    }
+
+    _setLoading(false);
+  } catch (e) {
+    _setLoading(false);
+    throw getErrorMessage(e); 
+  }
+}
+Future<void> fetchUserData() async {
+  final user = _auth.currentUser;
+  if (user != null) {
+    try {
+      final doc = await _firestore.collection('users').doc(user.uid).get();
+      if (doc.exists) {
+        _userData = doc.data();
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint("Error fetching user data: $e");
+    }
+  }
+}
+
+}
+

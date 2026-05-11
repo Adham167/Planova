@@ -2,10 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'profile_screen.dart';
-import 'change_password_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:provider/provider.dart';
+import 'package:planova_app/features/auth/providers/auth_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class PrivacySecurityScreen extends StatelessWidget {
+class PrivacySecurityScreen extends StatefulWidget {
   const PrivacySecurityScreen({super.key});
+
+  @override
+  State<PrivacySecurityScreen> createState() => _PrivacySecurityScreenState();
+}
+
+class _PrivacySecurityScreenState extends State<PrivacySecurityScreen> {
+  
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      if (mounted) {
+        context.read<AuthProvider>().fetchUserData();
+      }
+    });
+  }
 
   void _showDeleteConfirmDialog(BuildContext context) {
     showDialog(
@@ -43,7 +64,7 @@ class PrivacySecurityScreen extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      'Account deletion confirmed (placeholder).',
+                      'Account deletion confirmed.',
                       style: GoogleFonts.poppins(),
                     ),
                   ),
@@ -66,6 +87,18 @@ class PrivacySecurityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.watch<AuthProvider>();
+
+    final String userName = authProvider.userData?['full_name'] ?? "Loading...";
+    final dynamic passwordData = authProvider.userData?['passwordChangedAt'];
+    DateTime? lastChanged;
+
+    if (passwordData is Timestamp) {
+      lastChanged = passwordData.toDate();
+    } else if (passwordData is DateTime) {
+      lastChanged = passwordData;
+    }
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -94,7 +127,7 @@ class PrivacySecurityScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 14,
                     offset: const Offset(0, 6),
                   ),
@@ -102,12 +135,9 @@ class PrivacySecurityScreen extends StatelessWidget {
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: [                 
                   ListTile(
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 4,
-                    ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
                     leading: Container(
                       width: 42,
                       height: 42,
@@ -126,7 +156,7 @@ class PrivacySecurityScreen extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      'Mahmoud Ragab',
+                      userName, 
                       style: GoogleFonts.poppins(
                         color: AppColors.textGrey,
                         fontSize: 13,
@@ -143,10 +173,7 @@ class PrivacySecurityScreen extends StatelessWidget {
                   ),
                   const Divider(height: 1, indent: 16, endIndent: 16),
                   ListTile(
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 4,
-                    ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
                     leading: Container(
                       width: 42,
                       height: 42,
@@ -165,27 +192,20 @@ class PrivacySecurityScreen extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      'Last changed 3 months ago',
+                      lastChanged != null
+                          ? 'Last changed ${timeago.format(lastChanged)}'
+                          : 'Never changed',
                       style: GoogleFonts.poppins(
                         color: AppColors.textGrey,
                         fontSize: 13,
                       ),
                     ),
                     trailing: _buildTrailingIcon(const Color(0xFF9E9E9E)),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const ChangePasswordScreen(),
-                        ),
-                      );
-                    },
+                    onTap: () => context.push('/changePassword'),
                   ),
                   const Divider(height: 1, indent: 16, endIndent: 16),
                   ListTile(
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 4,
-                    ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
                     leading: Container(
                       width: 42,
                       height: 42,
@@ -193,10 +213,7 @@ class PrivacySecurityScreen extends StatelessWidget {
                         color: const Color(0xFFFFEBEE),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(
-                        Icons.delete_outline,
-                        color: Color(0xFFE53935),
-                      ),
+                      child: const Icon(Icons.delete_outline, color: Color(0xFFE53935)),
                     ),
                     title: Text(
                       'Delete Account',

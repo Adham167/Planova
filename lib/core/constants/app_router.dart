@@ -27,7 +27,6 @@ abstract class AppRouter {
 
   static GoRouter router(AuthProvider authProvider) {
     return GoRouter(
-
       refreshListenable: authProvider,
       initialLocation: signIn,
       redirect: (context, state) {
@@ -35,13 +34,15 @@ abstract class AppRouter {
         final isEmailVerified = authProvider.isEmailVerified;
         final location = state.uri.toString();
 
-        final isAuthRoute = location == signIn ||
+        final isAuthRoute =
+            location == signIn ||
             location == signUp ||
             location == resetPassword ||
-            location == verifyCode ||
-            location == changePassword;
+            location == verifyCode;
 
         if (!isLoggedIn) {
+        
+          if (location == changePassword) return signIn;
           return isAuthRoute ? null : signIn;
         }
 
