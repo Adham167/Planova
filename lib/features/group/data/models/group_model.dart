@@ -47,6 +47,28 @@ class GroupModel {
       'type': type,
     };
   }
+
+  GroupModel copyWith({
+    String? groupId,
+    String? name,
+    String? createdByUid,
+    DateTime? createdAt,
+    String? colorHex,
+    List<String>? memberUids,
+    GroupLife? status,
+    ScopeTab? type,
+  }) {
+    return GroupModel(
+      groupId: groupId ?? this.groupId,
+      name: name ?? this.name,
+      createdByUid: createdByUid ?? this.createdByUid,
+      createdAt: createdAt ?? this.createdAt,
+      colorHex: colorHex ?? this.colorHex,
+      memberUids: memberUids ?? this.memberUids,
+      status: status ?? this.status,
+      type: type ?? this.type,
+    );
+  }
 }
 
 extension GroupMapper on GroupModel {
@@ -64,8 +86,8 @@ extension GroupMapper on GroupModel {
   }
 }
 
-extension GroupEntityMapper on GroupModel {
-  GroupModel fromEntity() {
+extension GroupEntityMapper on GroupEntity {
+  GroupModel toModel() {
     return GroupModel(
       groupId: groupId,
       name: name,

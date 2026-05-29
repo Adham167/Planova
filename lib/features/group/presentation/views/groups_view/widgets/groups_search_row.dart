@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
-import 'package:planova_app/core/constants/app_router.dart';
 import 'package:planova_app/core/widgets/custom_text_field.dart';
+import 'package:planova_app/features/group/presentation/views/create_groups/widgets/create_group_bottom_sheet.dart';
 
 class GroupsSearchRow extends StatelessWidget {
   final Function(String) onSearch;
@@ -30,7 +29,15 @@ class GroupsSearchRow extends StatelessWidget {
           height: 42,
           child: ElevatedButton(
             onPressed: () {
-              GoRouter.of(context).push(AppRouter.kCreateGroupView);
+              // GoRouter.of(context).push(AppRouter.kCreateGroupView);
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) {
+                  return const CreateGroupBottomSheet();
+                },
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.kPrimary,
