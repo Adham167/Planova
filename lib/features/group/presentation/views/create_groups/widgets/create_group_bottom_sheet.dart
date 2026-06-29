@@ -44,7 +44,7 @@ class CreateGroupBottomSheet extends StatelessWidget {
 
           GroupTypeCard(
             icon: Icons.people_outline_rounded,
-            iconColor: AppColors.blue, //const Color(0xFF4A65FF),
+            iconColor: AppColors.blue,
             iconBgColor: const Color(0xFFEDF0FF),
             title: 'Team Group',
             subtitle: 'Collaborate with members',
@@ -59,7 +59,7 @@ class CreateGroupBottomSheet extends StatelessWidget {
 
           GroupTypeCard(
             icon: Icons.lock_outline_rounded,
-            iconColor: AppColors.kPrimary, //const Color(0xFF9E77ED),
+            iconColor: AppColors.kPrimary,
             iconBgColor: const Color(0xFFF1F1FF),
             title: 'Personal Group',
             subtitle: 'Only visible to you',

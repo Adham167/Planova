@@ -23,64 +23,6 @@ class _GroupsScreenBodyState extends State<GroupsScreenBody> {
   ScopeTab _scope = ScopeTab.all;
   ActivityFilter _activity = ActivityFilter.all;
   String _query = '';
-
-  // final List<GroupItem> _groups = const [
-  //   GroupItem(
-  //     title: 'Climate Research',
-  //     life: GroupLife.active,
-  //     lastSeen: '2h ago',
-  //     progress: 0.50,
-  //     scope: ScopeTab.team,
-  //     accent: Color(0xFFF3C7C7),
-  //   ),
-  //   GroupItem(
-  //     title: 'Molecular Biology',
-  //     life: GroupLife.idle,
-  //     lastSeen: '2h ago',
-  //     progress: 0.50,
-  //     scope: ScopeTab.personal,
-  //     accent: Color(0xFFC9D9F8),
-  //     comments: 0,
-  //     memberInitials: ['S'],
-  //     membersExtra: 0,
-  //   ),
-  //   GroupItem(
-  //     title: 'Modern Art History',
-  //     life: GroupLife.idle,
-  //     lastSeen: '2h ago',
-  //     progress: 0.50,
-  //     scope: ScopeTab.team,
-  //     accent: Color(0xFFE2D1F1),
-  //   ),
-  //   GroupItem(
-  //     title: 'Python Foundations',
-  //     life: GroupLife.active,
-  //     lastSeen: '2h ago',
-  //     progress: 0.50,
-  //     scope: ScopeTab.team,
-  //     accent: Color(0xFFF1D8C3),
-  //     comments: 0,
-  //   ),
-  //   GroupItem(
-  //     title: 'World War',
-  //     life: GroupLife.active,
-  //     lastSeen: '2h ago',
-  //     progress: 0.50,
-  //     scope: ScopeTab.personal,
-  //     accent: Color(0xFFCFECEF),
-  //     comments: 0,
-  //     membersExtra: 0,
-  //     memberInitials: ['J'],
-  //   ),
-  //   GroupItem(
-  //     title: 'Calculus Workshop',
-  //     life: GroupLife.idle,
-  //     lastSeen: '2h ago',
-  //     progress: 0.50,
-  //     scope: ScopeTab.team,
-  //     accent: Color(0xFFD4D8F7),
-  //   ),
-  // ];
   List<GroupEntity> filterGroups(List<GroupEntity> groups) {
     return groups.where((g) {
       final q = _query.trim().toLowerCase();

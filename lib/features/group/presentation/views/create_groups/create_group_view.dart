@@ -6,15 +6,20 @@ import 'package:planova_app/core/constants/app_styles.dart';
 import 'package:planova_app/core/di/service_locator.dart';
 import 'package:planova_app/features/group/data/models/group_item.dart';
 import 'package:planova_app/features/group/presentation/manager/create_group_cubit/create_group_cubit.dart';
+import 'package:planova_app/features/group/presentation/manager/search_user_cubit/search_user_cubit.dart';
 import 'package:planova_app/features/group/presentation/views/create_groups/widgets/create_group_body.dart';
 
 class CreateGroupView extends StatelessWidget {
   const CreateGroupView({super.key, required this.scopeTab});
   final ScopeTab scopeTab;
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CreateGroupCubit(getIt()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<CreateGroupCubit>()),
+        BlocProvider(create: (context) => getIt<SearchUserCubit>()),
+      ],
       child: Scaffold(
         backgroundColor: AppColors.kBackGround,
         appBar: AppBar(

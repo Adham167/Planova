@@ -7,6 +7,7 @@ class GetGroupsUsecase {
   final GroupsRepo repo;
 
   GetGroupsUsecase({required this.repo});
+
   Future<Either<Failure, List<GroupEntity>>> getGroups() async {
     return await repo.getGroups();
   }

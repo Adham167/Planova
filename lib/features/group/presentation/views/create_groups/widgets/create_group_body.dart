@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/widgets/custom_button.dart';
 import 'package:planova_app/features/group/data/models/group_item.dart';
-import 'package:planova_app/features/group/domain/entities/group_entity.dart';
 import 'package:planova_app/features/group/presentation/manager/create_group_cubit/create_group_cubit.dart';
 import 'package:planova_app/features/group/presentation/views/create_groups/widgets/appearance_body.dart';
 import 'package:planova_app/features/group/presentation/views/create_groups/widgets/details_body.dart';
@@ -23,9 +21,6 @@ class CreateGroupBody extends StatefulWidget {
 class _CreateGroupBodyState extends State<CreateGroupBody> {
   int currentStep = 0;
   final PageController _pageController = PageController();
-
-  String groupName = '';
-  String groupDescription = '';
 
   final List<Color> colors = [
     const Color(0xFFFFC1BE),
@@ -56,13 +51,13 @@ class _CreateGroupBodyState extends State<CreateGroupBody> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<CreateGroupCubit>(context);
     return BlocListener<CreateGroupCubit, CreateGroupState>(
       listener: (context, state) {
         if (state is CreateGroupSuccess) {
           Navigator.pop(context);
-
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Group created successfully ")),
+            const SnackBar(content: Text("Group created successfully")),
           );
         }
 
@@ -71,19 +66,13 @@ class _CreateGroupBodyState extends State<CreateGroupBody> {
             context,
           ).showSnackBar(SnackBar(content: Text(state.errMessage)));
         }
-        if (state is CreateGroupLoading) {
-          const Center(child: CircularProgressIndicator());
-        }
       },
-
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
             StepperWidget(currentStep: currentStep),
-
             const SizedBox(height: 40),
-
             Expanded(
               child: PageView(
                 controller: _pageController,
@@ -97,30 +86,33 @@ class _CreateGroupBodyState extends State<CreateGroupBody> {
                     alignment: Alignment.topCenter,
                     child: DetailsBody(
                       onNameChanged: (data) {
-                        groupName = data;
+                        cubit.groupName = data;
                       },
                       onDesChanged: (data) {
-                        groupDescription = data;
+                        cubit.groupDescription = data;
                       },
                     ),
                   ),
-
                   AppearanceBody(
                     colors: colors,
                     selectedColor: selectedColor,
                     onColorSelected: (color) {
                       setState(() {
                         selectedColor = color;
+                        cubit.updateColor(
+                          '#${color.value.toRadixString(16).substring(2)}',
+                        );
                       });
                     },
-                    name: groupName,
+                    name: cubit.groupName,
                   ),
-
-                  MembersBody(selectedColor: selectedColor, name: groupName),
+                  MembersBody(
+                    selectedColor: selectedColor,
+                    name: cubit.groupName,
+                  ),
                 ],
               ),
             ),
-
             BlocBuilder<CreateGroupCubit, CreateGroupState>(
               builder: (context, state) {
                 final isLoading = state is CreateGroupLoading;
@@ -130,34 +122,18 @@ class _CreateGroupBodyState extends State<CreateGroupBody> {
                       ? null
                       : () {
                           if (currentStep == 2) {
-                            BlocProvider.of<CreateGroupCubit>(
-                              context,
-                            ).createGroup(
-                              GroupEntity(
-                                groupId: '',
-                                name: groupName,
-                                description: groupDescription,
-                                createdByUid:
-                                    FirebaseAuth.instance.currentUser!.uid,
-                                createdAt: DateTime.now(),
-                                colorHex:
-                                    '#${selectedColor.value.toRadixString(16).substring(2)}',
-                                memberUids: [
-                                  FirebaseAuth.instance.currentUser!.uid,
-                                ],
-                                status: GroupLife.active,
-                                type: widget.groupType,
-                              ),
-                            );
+                            cubit.createGroup(widget.groupType);
                           } else {
-                            if (groupName.isNotEmpty &&
-                                groupDescription.isNotEmpty) {
+                            if (cubit.groupName.isNotEmpty &&
+                                cubit.groupDescription.isNotEmpty) {
                               nextStep();
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: AppColors.logoutRed,
-                                  content: Text("This fields Required"),
+                                  content: const Text(
+                                    "All fields are required",
+                                  ),
                                 ),
                               );
                             }
@@ -169,7 +145,6 @@ class _CreateGroupBodyState extends State<CreateGroupBody> {
                 );
               },
             ),
-
             const SizedBox(height: 16),
           ],
         ),
