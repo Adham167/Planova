@@ -408,7 +408,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (routeContext) =>
-                                      ChangeNotifierProvider<SettingsProvider>.value(
+                                      ChangeNotifierProvider<
+                                        SettingsProvider
+                                      >.value(
                                         value: settings,
                                         child: const PrivacySecurityScreen(),
                                       ),
@@ -459,4 +461,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
-
