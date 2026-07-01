@@ -7,6 +7,9 @@ import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/constants/app_router.dart';
 import 'package:planova_app/core/di/service_locator.dart';
 import 'package:planova_app/core/utils/app_bloc_observer.dart';
+import 'package:planova_app/features/group/data/repo/groups_repo_impl.dart';
+import 'package:planova_app/features/group/data/service/groups_firebase_service.dart';
+import 'package:planova_app/features/group/domain/repos/groups_repo.dart';
 import 'package:planova_app/firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'features/auth/providers/auth_provider.dart';
@@ -23,20 +26,18 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
 
-    ChangeNotifierProvider(
-      create: (_) => AuthProvider(),
-    ),
+        Provider<TaskRepository>(create: (_) => TaskRepository()),
 
-    ChangeNotifierProvider(
-      create: (_) => TasksProvider(TaskRepository()),
-    ),
-
-    ChangeNotifierProvider(
-  create: (_) => NewTaskProvider(TaskRepository()),
-),
-  ],
-      child: DevicePreview(enabled: true, builder: (context) => const MyApp()),
+        ChangeNotifierProvider(
+          create: (context) => TasksProvider(context.read<TaskRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => NewTaskProvider(context.read<TaskRepository>()),
+        ),
+      ],
+      child: DevicePreview(enabled: false, builder: (context) => const MyApp()),
     ),
   );
 }

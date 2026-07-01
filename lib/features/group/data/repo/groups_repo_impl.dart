@@ -32,7 +32,19 @@ class GroupsRepoImpl implements GroupsRepo {
       (data) => right(data.map((e) => e.toEntity()).toList()),
     );
   }
-
+@override
+  Stream<Either<Failure, List<GroupEntity>>> streamGroups() {
+    return firebaseService.streamGroups().transform(
+      StreamTransformer.fromHandlers(
+        handleData: (models, sink) {
+          sink.add(right(models.map((e) => e.toEntity()).toList()));
+        },
+        handleError: (error, stackTrace, sink) {
+          sink.add(left(Failure(error.toString())));
+        },
+      ),
+    );
+  }
   @override
   Future<Either<Failure, UserSearchEntity>> searchUserByEmail(
     String email,

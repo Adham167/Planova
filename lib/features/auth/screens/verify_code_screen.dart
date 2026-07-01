@@ -70,11 +70,21 @@ class VerifyCodeScreen extends StatelessWidget {
 
                       if (auth.isEmailVerified) {
                         try {
-                          await auth.saveUserDataToFirestore(
-                            fullName: userData?['fullName'] ?? "New User",
-                            email: userData?['email'] ?? "",
-                          );
-
+                          // await auth.saveUserDataToFirestore(
+                          //   fullName: userData?['fullName'] ?? "New User",
+                          //   email: userData?['email'] ?? "",
+                          // );
+                          if (auth.pendingName != null &&
+                              auth.pendingName!.isNotEmpty) {
+                            await auth.saveUserDataToFirestore(
+                              fullName: auth.pendingName!,
+                              email: "",
+                            );
+                            auth.pendingName =
+                                null; 
+                          } else {
+                            await auth.fetchUserData();
+                          }
                           if (context.mounted) {
                             context.go('/');
                           }

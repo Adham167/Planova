@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class TasksAppBar extends StatelessWidget {
   final VoidCallback? onAddPressed;
 
-  const TasksAppBar({
-    super.key,
-    this.onAddPressed,
-  });
+  const TasksAppBar({super.key, this.onAddPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +12,19 @@ class TasksAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            "Tasks",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            children: [
+              if (Navigator.canPop(context))
+                BackButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              const Text(
+                "Tasks",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
 
           GestureDetector(
@@ -29,14 +33,10 @@ class TasksAppBar extends StatelessWidget {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color:  Color(0xFF9BA3EB),
+                color: Color(0xFF9BA3EB),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 20,
-              ),
+              child: const Icon(Icons.add, color: Colors.white, size: 20),
             ),
           ),
         ],

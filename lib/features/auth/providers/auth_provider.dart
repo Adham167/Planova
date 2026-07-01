@@ -5,49 +5,54 @@ import 'package:flutter/material.dart';
 class AuthProvider extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  String? get userName => _userData?['full_name'];
+  String? pendingName;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-  
+
   bool get isLoggedIn => _auth.currentUser != null;
   bool get isEmailVerified => _auth.currentUser?.emailVerified ?? false;
 
   Map<String, dynamic>? _userData;
-Map<String, dynamic>? get userData => _userData;
+  Map<String, dynamic>? get userData => _userData;
 
- String getErrorMessage(dynamic e) {
-  if (e is FirebaseAuthException) {
-    switch (e.code) {
-      case 'invalid-email':
-        return "Invalid email format. Example: example@gmail.com";
-        
-      case 'user-disabled':
-        return "This user account has been disabled.";
-      
-      case 'user-not-found':
-      case 'wrong-password':
-      case 'invalid-credential':
-        return "Invalid email or password. Please try again.";
+  String getErrorMessage(dynamic e) {
+    if (e is FirebaseAuthException) {
+      switch (e.code) {
+        case 'invalid-email':
+          return "Invalid email format. Example: example@gmail.com";
 
-      case 'email-already-in-use':
-        return "This email is already in use.";
-      
-      case 'weak-password':
-        return "The password provided is too weak.";
-        
-      case 'too-many-requests':
-        return "Too many failed attempts. Please try again later.";
-        
-      default:
-        return "An unexpected error occurred. Please try again.";
+        case 'user-disabled':
+          return "This user account has been disabled.";
+
+        case 'user-not-found':
+        case 'wrong-password':
+        case 'invalid-credential':
+          return "Invalid email or password. Please try again.";
+
+        case 'email-already-in-use':
+          return "This email is already in use.";
+
+        case 'weak-password':
+          return "The password provided is too weak.";
+
+        case 'too-many-requests':
+          return "Too many failed attempts. Please try again later.";
+
+        default:
+          return "An unexpected error occurred. Please try again.";
+      }
     }
+    return e.toString();
   }
-  return e.toString();
-}
+
   Future<void> signUp({required String email, required String password}) async {
     _setLoading(true);
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       await sendVerificationEmail();
     } catch (e) {
       throw getErrorMessage(e);
@@ -59,11 +64,10 @@ Map<String, dynamic>? get userData => _userData;
   Future<void> saveUserDataToFirestore({
     required String fullName,
     required String email,
-    
   }) async {
-    final currentUser = _auth.currentUser; 
-  
-  if (currentUser == null) return;
+    final currentUser = _auth.currentUser;
+
+    if (currentUser == null) return;
 
     try {
       await _firestore.collection('users').doc(currentUser.uid).set({
@@ -133,60 +137,62 @@ Map<String, dynamic>? get userData => _userData;
   }
 
   Future<void> sendPasswordReset(String email) async {
-  _setLoading(true);
-  try {
-    await _auth.sendPasswordResetEmail(email: email);
-  } catch (e) {
-    throw getErrorMessage(e);
-  } finally {
-    _setLoading(false);
-  }
-}
-
-Future<void> changePassword({required String oldPassword, required String newPassword}) async {
-  _setLoading(true);
-  try {
-    final user = _auth.currentUser;
-    if (user == null) throw "User not found";
-
-    AuthCredential credential = EmailAuthProvider.credential(
-      email: user.email!,
-      password: oldPassword,
-    );
-
-    await user.reauthenticateWithCredential(credential);
-    await user.updatePassword(newPassword);
-
-    DateTime now = DateTime.now();
-    await _firestore.collection('users').doc(user.uid).update({
-      'passwordChangedAt': now,
-    });
-
-    if (_userData != null) {
-      _userData!['passwordChangedAt'] = Timestamp.fromDate(now); 
-      notifyListeners();
-    }
-
-    _setLoading(false);
-  } catch (e) {
-    _setLoading(false);
-    throw getErrorMessage(e); 
-  }
-}
-Future<void> fetchUserData() async {
-  final user = _auth.currentUser;
-  if (user != null) {
+    _setLoading(true);
     try {
-      final doc = await _firestore.collection('users').doc(user.uid).get();
-      if (doc.exists) {
-        _userData = doc.data();
+      await _auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      throw getErrorMessage(e);
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    _setLoading(true);
+    try {
+      final user = _auth.currentUser;
+      if (user == null) throw "User not found";
+
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: oldPassword,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+      await user.updatePassword(newPassword);
+
+      DateTime now = DateTime.now();
+      await _firestore.collection('users').doc(user.uid).update({
+        'passwordChangedAt': now,
+      });
+
+      if (_userData != null) {
+        _userData!['passwordChangedAt'] = Timestamp.fromDate(now);
         notifyListeners();
       }
+
+      _setLoading(false);
     } catch (e) {
-      debugPrint("Error fetching user data: $e");
+      _setLoading(false);
+      throw getErrorMessage(e);
+    }
+  }
+
+  Future<void> fetchUserData() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      try {
+        final doc = await _firestore.collection('users').doc(user.uid).get();
+        if (doc.exists) {
+          _userData = doc.data();
+          notifyListeners();
+        }
+      } catch (e) {
+        debugPrint("Error fetching user data: $e");
+      }
     }
   }
 }
-
-}
-

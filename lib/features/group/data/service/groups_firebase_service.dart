@@ -12,6 +12,7 @@ import 'package:planova_app/features/group/data/models/user_search_model.dart';
 abstract class GroupsFirebaseService {
   Future<Either<Failure, void>> createGroup(GroupModel group);
   Future<Either<Failure, List<GroupModel>>> getGroups();
+  Stream<List<GroupModel>> streamGroups();
   Future<Either<Failure, UserSearchModel>> searchUserByEmail(String email);
   Future<Either<Failure, List<GroupMemberModel>>> getGroupMembers(
     String groupId,
@@ -41,6 +42,7 @@ abstract class GroupsFirebaseService {
   });
   Stream<List<GroupMessageModel>> getChatMessagesStream(String groupId);
 }
+
 ////////////////////////////////////////////////////////////////////////////////////
 class GroupsFirebaseServiceImpl implements GroupsFirebaseService {
   final FirebaseFirestore firestore;
@@ -53,6 +55,7 @@ class GroupsFirebaseServiceImpl implements GroupsFirebaseService {
     }
     return user.uid;
   }
+
   @override
   Future<Either<Failure, void>> createGroup(GroupModel group) async {
     try {
@@ -110,6 +113,21 @@ class GroupsFirebaseServiceImpl implements GroupsFirebaseService {
       return left(Failure(e.toString()));
     }
   }
+
+  @override
+  Stream<List<GroupModel>> streamGroups() {
+    final currentUid = _currentUid;
+    return firestore
+        .collection('groups')
+        .where('member_uids', arrayContains: currentUid)
+        .snapshots() 
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => GroupModel.fromJson(doc.data()))
+              .toList(),
+        );
+  }
+
   @override
   Future<Either<Failure, List<GroupModel>>> getGroups() async {
     try {
@@ -128,6 +146,7 @@ class GroupsFirebaseServiceImpl implements GroupsFirebaseService {
       return left(Failure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, UserSearchModel>> searchUserByEmail(
     String email,
@@ -149,6 +168,7 @@ class GroupsFirebaseServiceImpl implements GroupsFirebaseService {
       return left(Failure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, List<GroupMemberModel>>> getGroupMembers(
     String groupId,
@@ -200,55 +220,51 @@ class GroupsFirebaseServiceImpl implements GroupsFirebaseService {
   }
 
   @override
-Future<Either<Failure, void>> addMemberToExistingGroup({
-  required String groupId,
-  required String uid,
-  required String name,
-  required String email,
-  String? avatarUrl,
-}) async {
-  try {
-    final groupDocRef = firestore.collection('groups').doc(groupId);
+  Future<Either<Failure, void>> addMemberToExistingGroup({
+    required String groupId,
+    required String uid,
+    required String name,
+    required String email,
+    String? avatarUrl,
+  }) async {
+    try {
+      final groupDocRef = firestore.collection('groups').doc(groupId);
 
-    final existingMember = await groupDocRef
-        .collection('members')
-        .doc(uid)
-        .get();
+      final existingMember = await groupDocRef
+          .collection('members')
+          .doc(uid)
+          .get();
 
-    if (existingMember.exists) {
-      return left(
-        Failure("This member is already in the group."),
+      if (existingMember.exists) {
+        return left(Failure("This member is already in the group."));
+      }
+
+      final member = GroupMemberModel(
+        uid: uid,
+        name: name,
+        email: email,
+        avatarUrl: avatarUrl,
+        role: 'member',
+        joinedAt: DateTime.now(),
       );
+
+      final batch = firestore.batch();
+
+      batch.set(groupDocRef.collection('members').doc(uid), member.toMap());
+
+      batch.update(groupDocRef, {
+        'member_uids': FieldValue.arrayUnion([uid]),
+      });
+
+      await batch.commit();
+
+      return right(null);
+    } catch (e) {
+      log(e.toString());
+      return left(Failure(e.toString()));
     }
-
-    final member = GroupMemberModel(
-      uid: uid,
-      name: name,
-      email: email,
-      avatarUrl: avatarUrl,
-      role: 'member',
-      joinedAt: DateTime.now(),
-    );
-
-    final batch = firestore.batch();
-
-    batch.set(
-      groupDocRef.collection('members').doc(uid),
-      member.toMap(),
-    );
-
-    batch.update(groupDocRef, {
-      'member_uids': FieldValue.arrayUnion([uid]),
-    });
-
-    await batch.commit();
-
-    return right(null);
-  } catch (e) {
-    log(e.toString());
-    return left(Failure(e.toString()));
   }
-}
+
   @override
   Future<Either<Failure, void>> createGroupTask(GroupTaskModel task) async {
     try {
@@ -276,6 +292,7 @@ Future<Either<Failure, void>> addMemberToExistingGroup({
       return left(Failure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, List<GroupTaskModel>>> getGroupTasks(
     String groupId,
@@ -298,6 +315,7 @@ Future<Either<Failure, void>> addMemberToExistingGroup({
       return left(Failure(e.toString()));
     }
   }
+
   @override
   Stream<List<GroupTaskModel>> streamGroupTasks(String groupId) {
     return firestore
@@ -312,6 +330,7 @@ Future<Either<Failure, void>> addMemberToExistingGroup({
               .toList(),
         );
   }
+
   @override
   Future<Either<Failure, void>> toggleTaskCompletion({
     required String groupId,
@@ -331,6 +350,7 @@ Future<Either<Failure, void>> addMemberToExistingGroup({
       return left(Failure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, void>> sendGroupMessage(
     GroupMessageModel message, {
@@ -353,6 +373,7 @@ Future<Either<Failure, void>> addMemberToExistingGroup({
       return left(Failure(e.toString()));
     }
   }
+
   @override
   Stream<List<GroupMessageModel>> getChatMessagesStream(String groupId) {
     return firestore

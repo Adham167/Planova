@@ -9,6 +9,7 @@ import 'package:planova_app/features/group/domain/entities/user_search_entity.da
 abstract class GroupsRepo {
   Future<Either<Failure, void>> createGroup(GroupEntity group);
   Future<Either<Failure, List<GroupEntity>>> getGroups();
+  Stream<Either<Failure, List<GroupEntity>>> streamGroups();
   Future<Either<Failure, UserSearchEntity>> searchUserByEmail(String email);
   Future<Either<Failure, List<GroupMemberEntity>>> getGroupMembers(
     String groupId,

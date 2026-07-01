@@ -42,6 +42,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
         return Scaffold(
           appBar: TaskAppBar(
             title: widget.isEdit ? "Task Details" : "New Task",
+       
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),

@@ -12,6 +12,7 @@ import 'package:planova_app/features/main_page.dart';
 import 'package:planova_app/features/auth/providers/auth_provider.dart';
 import 'package:planova_app/features/auth/screens/verify_code_screen.dart';
 import 'package:planova_app/features/auth/screens/change_password_screen.dart';
+import 'package:planova_app/features/tasks/models/TaskModel.dart';
 import 'package:planova_app/features/tasks/screens/task_screen.dart';
 import 'package:planova_app/features/tasks/screens/tasks_list_screen.dart';
 
@@ -32,7 +33,8 @@ abstract class AppRouter {
   static GoRouter router(AuthProvider authProvider) {
     return GoRouter(
       refreshListenable: authProvider,
-      initialLocation: root,
+      // 1. Start the app at the sign-in screen
+      initialLocation: signIn,
       redirect: (context, state) {
         final isLoggedIn = authProvider.isLoggedIn;
         final isEmailVerified = authProvider.isEmailVerified;
@@ -43,7 +45,8 @@ abstract class AppRouter {
             location == signUp ||
             location == resetPassword ||
             location == verifyCode;
-/*
+
+        // 2. Uncommented the guard clauses to handle auth state routing
         if (!isLoggedIn) {
           if (location == changePassword) return signIn;
           return isAuthRoute ? null : signIn;
@@ -56,7 +59,7 @@ abstract class AppRouter {
         if (isLoggedIn && isEmailVerified && isAuthRoute) {
           return root;
         }
-*/
+
         return null;
       },
       routes: [
@@ -96,6 +99,7 @@ abstract class AppRouter {
         GoRoute(
           path: kCreateGroupView,
           builder: (context, state) {
+            // Make sure ScopeTab is imported or defined in your file!
             final type = state.extra as ScopeTab;
             return CreateGroupView(scopeTab: type);
           },
@@ -110,6 +114,12 @@ abstract class AppRouter {
         GoRoute(
           path: kEditGroupView,
           builder: (context, state) => const EditGroupView(),
+        ),
+        GoRoute(
+          path: tasksListScreen,
+          builder: (context, state) {
+            return TasksScreen();
+          },
         ),
       ],
     );

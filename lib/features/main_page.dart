@@ -16,11 +16,18 @@ class _MainPageState extends State<MainPage> {
   final PageController _controller = PageController();
   int currentIndex = 0;
 
-  final List<Widget> screens = const [
-    HomeView(),
-    TasksScreen(),
-    GroupsView(),
-    SettingsScreen(),
+  List<Widget> get screens => [
+    HomeView(
+      onNavigateToGroups: () {
+        onTap(2);
+      },
+        onNavigateToTasks: () {
+        onTap(1);
+      },
+    ),
+    const TasksScreen(),
+    const GroupsView(),
+    const SettingsScreen(),
   ];
 
   void onTap(int index) {

@@ -23,6 +23,7 @@ import 'package:planova_app/features/group/presentation/manager/get_groups_cubit
 import 'package:planova_app/features/group/presentation/manager/group_member_cubit/group_members_cubit.dart';
 import 'package:planova_app/features/group/presentation/manager/search_user_cubit/search_user_cubit.dart';
 import 'package:planova_app/features/group/presentation/manager/group_details_cubit/group_details_cubit.dart';
+import 'package:planova_app/features/tasks/repositories/task_repository.dart';
 
 final getIt = GetIt.instance;
 
@@ -31,6 +32,7 @@ Future<void> initializeDependencies() async {
     () => GroupsFirebaseServiceImpl(firestore: FirebaseFirestore.instance),
   );
   getIt.registerLazySingleton<GroupsRepo>(() => GroupsRepoImpl(getIt()));
+  getIt.registerLazySingleton<TaskRepository>(() => TaskRepository());
 
   getIt.registerLazySingleton(() => CreateGroupUsecase(repo: getIt()));
   getIt.registerLazySingleton(() => GetGroupsUsecase(repo: getIt()));
@@ -49,7 +51,6 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton(() => GetGroupTasksStreamUseCase(repo: getIt()));
   getIt.registerLazySingleton(() => SendGroupMessageUseCase(repo: getIt()));
   getIt.registerLazySingleton(() => ToggleTaskCompletionUseCase(repo: getIt()));
-
 
   getIt.registerFactory(() => GetGroupsCubit(getIt<GetMyGroupsUseCase>()));
 

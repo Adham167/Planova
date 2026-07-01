@@ -47,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
       } else {
         currentContext.go(
           '/verifyCode',
-          extra: {'email': emailController.text.trim(), 'fullName': 'User'},
+          extra: {'email': emailController.text.trim(), 'fullName': auth.userName ?? ''},
         );
       }
     } catch (e) {
