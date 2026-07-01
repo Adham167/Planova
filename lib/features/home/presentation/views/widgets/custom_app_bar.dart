@@ -5,26 +5,44 @@ import 'package:planova_app/core/constants/app_styles.dart';
 import 'package:planova_app/core/constants/assets.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  const CustomAppBar({super.key, required this.userName});
+
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
+    // Safely get the first letter, default to 'U' if the name is somehow empty
+    final String firstLetter = userName.isNotEmpty
+        ? userName[0].toUpperCase()
+        : 'U';
+
     return Row(
       children: [
         Row(
           children: [
-            Image.asset(Assets.imagesProfile, width: 40, height: 40),
+
+            CircleAvatar(
+              radius: 20, 
+              backgroundColor: AppColors
+                  .primaryLightPurple,
+              child: Text(
+                firstLetter,
+                style: AppStyles.semiBold20(
+                  context,
+                ).copyWith(color: AppColors.white),
+              ),
+            ),
             const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Good Morning', style: AppStyles.medium14(context)),
-                Text('Hla!', style: AppStyles.semiBold20(context)),
+                Text(userName, style: AppStyles.semiBold20(context)),
               ],
             ),
           ],
         ),
-        Spacer(),
+        const Spacer(),
         Row(
           children: [
             Container(

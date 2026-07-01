@@ -1,54 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/constants/app_styles.dart';
-import 'package:planova_app/features/home/models/task_item_model.dart';
+import 'package:planova_app/features/tasks/models/TaskModel.dart';
 
 class TaskItem extends StatelessWidget {
-  final TaskItemModel taskItemModel;
+  final TaskModel taskModel;
+final VoidCallback? onTap; 
 
-  const TaskItem({super.key, required this.taskItemModel});
+  const TaskItem({super.key, required this.taskModel, this.onTap,});
 
   @override
   Widget build(BuildContext context) {
+    final bool isDone = taskModel.status == 'done';
     return GestureDetector(
-      onTap: taskItemModel.onTap,
+      onTap: onTap,
       child: Row(
         children: [
           Container(
             width: 24,
             height: 24,
             decoration: BoxDecoration(
-              color: taskItemModel.isDone
+              color:isDone
                   ? AppColors.primaryLightPurple
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
-                color: taskItemModel.isDone
+                color: isDone
                     ? AppColors.primaryLightPurple
                     : AppColors.grey300,
                 width: 1.5,
               ),
             ),
-            child: taskItemModel.isDone
+            child: isDone
                 ? const Icon(Icons.check, size: 16, color: AppColors.white)
                 : null,
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              taskItemModel.title,
+              taskModel.title,
               style: AppStyles.medium12(context).copyWith(
-                color: taskItemModel.isDone
+                color: isDone
                     ? AppColors.blueGrey
                     : AppColors.darkGrey,
-                decoration: taskItemModel.isDone
+                decoration:isDone
                     ? TextDecoration.lineThrough
                     : null,
                 decorationColor: AppColors.blueGrey,
               ),
             ),
           ),
-          _buildPriorityTag(taskItemModel.priority, context),
+          _buildPriorityTag(taskModel.priority, context),
         ],
       ),
     );

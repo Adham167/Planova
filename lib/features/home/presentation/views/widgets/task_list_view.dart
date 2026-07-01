@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:planova_app/features/home/models/task_item_model.dart';
 import 'package:planova_app/features/home/presentation/views/widgets/task_item.dart';
+import 'package:planova_app/features/tasks/models/TaskModel.dart';
 
-class TaskListView extends StatefulWidget {
+class TaskListView extends StatelessWidget {
+  final List<TaskModel> tasks;
+
   const TaskListView({super.key, required this.tasks});
-  final List<TaskItemModel> tasks;
-  @override
-  State<TaskListView> createState() => _TaskListViewState();
-}
-
-class _TaskListViewState extends State<TaskListView> {
-  late List<TaskItemModel> tasks;
-  @override
-  void initState() {
-    tasks = List.from(widget.tasks);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +14,7 @@ class _TaskListViewState extends State<TaskListView> {
         final task = tasks[index];
         return Column(
           children: [
-            TaskItem(
-              taskItemModel: task.copyWith(
-                onTap: () {
-                  setState(() {
-                    tasks[index] = task.copyWith(isDone: !task.isDone);
-                  });
-                },
-              ),
-            ),
+            TaskItem(taskModel: task),
             if (index != tasks.length - 1) const SizedBox(height: 8),
           ],
         );

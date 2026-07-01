@@ -7,7 +7,6 @@ import '../providers/auth_provider.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
-
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -43,7 +42,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       try {
         final currentContext = context;
-
+        final authProvider = currentContext.read<AuthProvider>();
+        authProvider.pendingName = _nameController.text.trim();
         await currentContext.read<AuthProvider>().signUp(
           email: _emailController.text.trim(),
           password: _passwordController.text,
@@ -53,10 +53,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
         currentContext.go(
           '/verifyCode',
-          extra: {
-            'fullName': _nameController.text.trim(),
-            'email': _emailController.text.trim(),
-          },
+          // extra: {
+          //   'fullName': _nameController.text.trim(),
+          //   'email': _emailController.text.trim(),
+          // },
         );
       } catch (e) {
         if (!context.mounted) return;
@@ -66,7 +66,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           Overlay.of(context),
           CustomSnackBar.error(message: errorMessage),
         );
-        ;
       }
     }
   }

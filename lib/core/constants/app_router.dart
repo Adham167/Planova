@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:planova_app/features/group/presentation/views/groups_view/GroupsScreen.dart';
-import 'package:planova_app/features/group/presentation/views/create_groups/create_group_screen.dart';
+import 'package:planova_app/features/group/data/models/group_item.dart';
+import 'package:planova_app/features/group/domain/entities/group_entity.dart';
+import 'package:planova_app/features/group/presentation/views/groups_view/GroupsView.dart';
+import 'package:planova_app/features/group/presentation/views/create_groups/create_group_view.dart';
 import 'package:planova_app/features/group/presentation/views/edit_groups/edit_group_view.dart';
 import 'package:planova_app/features/group/presentation/views/group_details/groups_details_view.dart';
 import 'package:planova_app/features/auth/screens/sign_in_screen.dart';
@@ -20,6 +22,8 @@ abstract class AppRouter {
   static const String verifyCode = '/verifyCode';
   static const String changePassword = '/changePassword';
   static const String root = '/';
+  static const String createTaskScrren = '/CreateTaskScreen';
+  static const String tasksListScreen = '/TasksScreen';
   static const String kGroupsScreen = '/groupsScreen';
   static const String kCreateGroupView = '/CreateGroupView';
   static const String kGroupDetailsView = '/GroupDetailsView';
@@ -28,6 +32,7 @@ abstract class AppRouter {
   static GoRouter router(AuthProvider authProvider) {
     return GoRouter(
       refreshListenable: authProvider,
+      // 1. Start the app at the sign-in screen
       initialLocation: signIn,
       redirect: (context, state) {
         final isLoggedIn = authProvider.isLoggedIn;
@@ -40,8 +45,8 @@ abstract class AppRouter {
             location == resetPassword ||
             location == verifyCode;
 
+        // 2. Uncommented the guard clauses to handle auth state routing
         if (!isLoggedIn) {
-        
           if (location == changePassword) return signIn;
           return isAuthRoute ? null : signIn;
         }
@@ -57,18 +62,64 @@ abstract class AppRouter {
         return null;
       },
       routes: [
-        GoRoute(path: signIn, builder: (context, state) => const SignInScreen()),
-        GoRoute(path: signUp, builder: (context, state) => const SignUpScreen()),
-        GoRoute(path: resetPassword, builder: (context, state) => const ResetPasswordScreen()),
-        GoRoute(path: verifyCode, builder: (context, state) => const VerifyCodeScreen()),
-        GoRoute(path: changePassword, builder: (context, state) => const ChangePasswordScreen()),
+        GoRoute(
+          path: signIn,
+          builder: (context, state) => const SignInScreen(),
+        ),
+        GoRoute(
+          path: signUp,
+          builder: (context, state) => const SignUpScreen(),
+        ),
+        GoRoute(
+          path: resetPassword,
+          builder: (context, state) => const ResetPasswordScreen(),
+        ),
+        GoRoute(
+          path: verifyCode,
+          builder: (context, state) => const VerifyCodeScreen(),
+        ),
+        GoRoute(
+          path: changePassword,
+          builder: (context, state) => const ChangePasswordScreen(),
+        ),
         GoRoute(path: root, builder: (context, state) => const MainPage()),
-        GoRoute(path: '/tasksScreen', builder: (context, state) => const TasksScreen()),
-        GoRoute(path: '/createTaskScreen', builder: (context, state) => const CreateTaskScreen()),
-        GoRoute(path: kGroupsScreen, builder: (context, state) => const GroupsScreen()),
-        GoRoute(path: kCreateGroupView, builder: (context, state) => const CreateGroupView()),
-        GoRoute(path: kGroupDetailsView, builder: (context, state) => const GroupsDetailsView()),
-        GoRoute(path: kEditGroupView, builder: (context, state) => const EditGroupView()),
+        GoRoute(
+          path: '/tasksScreen',
+          builder: (context, state) => const TasksScreen(),
+        ),
+        GoRoute(
+          path: '/createTaskScreen',
+          builder: (context, state) => const CreateTaskScreen(),
+        ),
+        GoRoute(
+          path: kGroupsScreen,
+          builder: (context, state) => const GroupsView(),
+        ),
+        GoRoute(
+          path: kCreateGroupView,
+          builder: (context, state) {
+            // Make sure ScopeTab is imported or defined in your file!
+            final type = state.extra as ScopeTab;
+            return CreateGroupView(scopeTab: type);
+          },
+        ),
+        GoRoute(
+          path: kGroupDetailsView,
+          builder: (context, state) {
+            final group = state.extra as GroupEntity;
+            return GroupsDetailsView(groupEntity: group);
+          },
+        ),
+        GoRoute(
+          path: kEditGroupView,
+          builder: (context, state) => const EditGroupView(),
+        ),
+        GoRoute(
+          path: tasksListScreen,
+          builder: (context, state) {
+            return TasksScreen();
+          },
+        ),
       ],
     );
   }
