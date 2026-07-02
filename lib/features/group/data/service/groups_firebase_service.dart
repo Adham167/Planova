@@ -41,6 +41,14 @@ abstract class GroupsFirebaseService {
     required String groupId,
   });
   Stream<List<GroupMessageModel>> getChatMessagesStream(String groupId);
+  Future<Either<Failure, void>> updateGroupTask({
+    required String groupId,
+    required String taskId,
+    required String title,
+    required String description,
+    required String priority,
+    required DateTime dueDate,
+  });
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -115,12 +123,40 @@ class GroupsFirebaseServiceImpl implements GroupsFirebaseService {
   }
 
   @override
+  Future<Either<Failure, void>> updateGroupTask({
+    required String groupId,
+    required String taskId,
+    required String title,
+    required String description,
+    required String priority,
+    required DateTime dueDate,
+  }) async {
+    try {
+      await firestore
+          .collection('groups')
+          .doc(groupId)
+          .collection('tasks')
+          .doc(taskId)
+          .update({
+            'title': title,
+            'description': description,
+            'priority': priority,
+            'dueDate': Timestamp.fromDate(dueDate),
+          });
+      return right(null);
+    } catch (e) {
+      log(e.toString());
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
   Stream<List<GroupModel>> streamGroups() {
     final currentUid = _currentUid;
     return firestore
         .collection('groups')
         .where('member_uids', arrayContains: currentUid)
-        .snapshots() 
+        .snapshots()
         .map(
           (snapshot) => snapshot.docs
               .map((doc) => GroupModel.fromJson(doc.data()))

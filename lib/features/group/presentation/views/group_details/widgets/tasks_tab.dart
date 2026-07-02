@@ -29,6 +29,7 @@ class TasksTab extends StatelessWidget {
               const Spacer(),
               GestureDetector(
                 onTap: () {
+         
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => CreateTaskView(
@@ -92,11 +93,25 @@ class TasksTab extends StatelessWidget {
 
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: TaskCard(
-                      task: task,
-                      onToggle: (value) {
-                        cubit.toggleTask(task.id, value);
+                    child: GestureDetector(
+                      onTap: () {
+                   
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => CreateTaskView(
+                              lockedGroupId: groupEntity.groupId,
+                              lockedGroupName: groupEntity.name,
+                              taskToEdit: task, 
+                            ),
+                          ),
+                        );
                       },
+                      child: TaskCard(
+                        task: task,
+                        onToggle: (value) {
+                          cubit.toggleTask(task.id, value);
+                        },
+                      ),
                     ),
                   );
                 },
