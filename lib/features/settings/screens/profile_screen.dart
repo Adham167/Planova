@@ -40,13 +40,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Confirm Password', style: GoogleFonts.poppins(fontWeight: FontWeight.w700)),
+          title: Text(
+            'Confirm Password',
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 'Enter your current password to update your email.',
-                style: GoogleFonts.poppins(color: AppColors.textGrey, fontSize: 13),
+                style: GoogleFonts.poppins(
+                  color: AppColors.textGrey,
+                  fontSize: 13,
+                ),
               ),
               const SizedBox(height: 16),
               TextField(
@@ -54,7 +60,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Current password',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
               ),
             ],
@@ -62,11 +70,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(null),
-              child: Text('Cancel', style: GoogleFonts.poppins(color: AppColors.textGrey)),
+              child: Text(
+                'Cancel',
+                style: GoogleFonts.poppins(color: AppColors.textGrey),
+              ),
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.kPrimary),
-              onPressed: () => Navigator.of(context).pop(passwordController.text.trim()),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.kPrimary,
+              ),
+              onPressed: () =>
+                  Navigator.of(context).pop(passwordController.text.trim()),
               child: Text('Confirm', style: GoogleFonts.poppins()),
             ),
           ],
@@ -83,23 +97,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Update Profile Photo', style: GoogleFonts.poppins(fontWeight: FontWeight.w700)),
+          title: Text(
+            'Update Profile Photo',
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
+          ),
           content: TextField(
             controller: imageUrlController,
             keyboardType: TextInputType.url,
             decoration: InputDecoration(
               hintText: 'Paste image URL',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(null),
-              child: Text('Cancel', style: GoogleFonts.poppins(color: AppColors.textGrey)),
+              child: Text(
+                'Cancel',
+                style: GoogleFonts.poppins(color: AppColors.textGrey),
+              ),
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.kPrimary),
-              onPressed: () => Navigator.of(context).pop(imageUrlController.text.trim()),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.kPrimary,
+              ),
+              onPressed: () =>
+                  Navigator.of(context).pop(imageUrlController.text.trim()),
               child: Text('Save', style: GoogleFonts.poppins()),
             ),
           ],
@@ -114,7 +139,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       await settings.updateProfileImageUrl(newImageUrl);
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Profile photo updated', style: GoogleFonts.poppins())),
+        SnackBar(
+          content: Text('Profile photo updated', style: GoogleFonts.poppins()),
+        ),
       );
     } catch (e) {
       if (!mounted) return;
@@ -124,7 +151,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  Future<void> _saveChanges(SettingsProvider settings, SettingsUser user) async {
+  Future<void> _saveChanges(
+    SettingsProvider settings,
+    SettingsUser user,
+  ) async {
     if (_formKey.currentState?.validate() != true) return;
 
     final newUsername = _usernameController.text.trim();
@@ -134,7 +164,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (!emailChanged && !nameChanged) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Nothing to save', style: GoogleFonts.poppins())),
+        SnackBar(
+          content: Text('Nothing to save', style: GoogleFonts.poppins()),
+        ),
       );
       return;
     }
@@ -150,7 +182,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Profile updated successfully', style: GoogleFonts.poppins())),
+        SnackBar(
+          content: Text(
+            'Profile updated successfully',
+            style: GoogleFonts.poppins(),
+          ),
+        ),
       );
     } catch (e) {
       if (!mounted) return;
@@ -248,9 +285,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         CircleAvatar(
                           radius: 55,
-                          backgroundColor: const Color(0xFFE8EAF6),
+                          backgroundColor: AppColors.primaryLightPurple,
                           backgroundImage: user.profilePicUrl.isNotEmpty
-                              ? NetworkImage(user.profilePicUrl) as ImageProvider
+                              ? NetworkImage(user.profilePicUrl)
+                                    as ImageProvider
                               : null,
                           child: user.profilePicUrl.isEmpty
                               ? Text(
@@ -336,7 +374,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ? null
                                   : () => _saveChanges(settings, user),
                               child: Text(
-                                settings.isSaving ? 'Saving...' : 'Save Changes',
+                                settings.isSaving
+                                    ? 'Saving...'
+                                    : 'Save Changes',
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white,

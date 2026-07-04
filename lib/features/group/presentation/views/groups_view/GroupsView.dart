@@ -11,11 +11,12 @@ class GroupsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => GetGroupsCubit(getIt())..getGroups()),
+ 
+        BlocProvider(
+          create: (context) => GetGroupsCubit(getIt())..startStreamingGroups(),
+        ),
       ],
-
       child: const Scaffold(
-       
         body: SafeArea(child: GroupsScreenBody()),
       ),
     );

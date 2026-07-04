@@ -5,9 +5,15 @@ import 'package:planova_app/features/tasks/models/TaskModel.dart';
 
 class TaskItem extends StatelessWidget {
   final TaskModel taskModel;
-final VoidCallback? onTap; 
+  final VoidCallback? onTap;
+  final Function(bool)? onToggle;
 
-  const TaskItem({super.key, required this.taskModel, this.onTap,});
+  const TaskItem({
+    super.key,
+    required this.taskModel,
+    this.onTap,
+    this.onToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,36 +22,39 @@ final VoidCallback? onTap;
       onTap: onTap,
       child: Row(
         children: [
-          Container(
-            width: 24,
-            height: 24,
-            decoration: BoxDecoration(
-              color:isDone
-                  ? AppColors.primaryLightPurple
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(
+          GestureDetector(
+            onTap: () {
+              if (onToggle != null) {
+                onToggle!(!isDone);
+              }
+            },
+            child: Container(
+              width: 24,
+              height: 24,
+              decoration: BoxDecoration(
                 color: isDone
                     ? AppColors.primaryLightPurple
-                    : AppColors.grey300,
-                width: 1.5,
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(
+                  color: isDone
+                      ? AppColors.primaryLightPurple
+                      : AppColors.grey300,
+                  width: 1.5,
+                ),
               ),
+              child: isDone
+                  ? const Icon(Icons.check, size: 16, color: AppColors.white)
+                  : null,
             ),
-            child: isDone
-                ? const Icon(Icons.check, size: 16, color: AppColors.white)
-                : null,
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               taskModel.title,
               style: AppStyles.medium12(context).copyWith(
-                color: isDone
-                    ? AppColors.blueGrey
-                    : AppColors.darkGrey,
-                decoration:isDone
-                    ? TextDecoration.lineThrough
-                    : null,
+                color: isDone ? AppColors.blueGrey : AppColors.darkGrey,
+                decoration: isDone ? TextDecoration.lineThrough : null,
                 decorationColor: AppColors.blueGrey,
               ),
             ),
@@ -72,7 +81,7 @@ final VoidCallback? onTap;
       case 'low':
       default:
         bgColor = AppColors.greenBackground;
-        textColor = AppColors.green;
+        textColor = AppColors.greenSuccess;
         break;
     }
 

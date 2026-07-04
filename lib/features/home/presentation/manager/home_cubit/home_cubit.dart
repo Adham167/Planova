@@ -71,6 +71,16 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
+
+  Future<void> toggleTaskCompletion(TaskModel task) async {
+    try {
+   
+      await _repository.toggleTaskStatus(task);
+    } catch (e) {
+      emit(state.copyWith(error: "Failed to update task: ${e.toString()}"));
+    }
+  }
+
   @override
   Future<void> close() {
     _tasksSubscription?.cancel();

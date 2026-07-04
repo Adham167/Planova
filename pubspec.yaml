@@ -45,7 +45,7 @@ flutter:
   assets:
     - assets/images/
 
-  # ❗ سيبها بس لو هتستخدم fonts محليًا
+
   fonts:
     - family: Poppins
       fonts:
