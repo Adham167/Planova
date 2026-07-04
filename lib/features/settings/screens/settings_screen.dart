@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
 import '../../auth/providers/auth_provider.dart';
 import '../models/settings_user.dart';
 import '../models/statisticCardData.dart';
@@ -11,6 +12,10 @@ import '../repository/settings_repository.dart';
 import '../services/settings_service.dart';
 import '../widgets/statisticCard.dart';
 import 'privacy_security_screen.dart';
+
+// Import your dependency injection and task repository
+import 'package:planova_app/core/di/service_locator.dart';
+import 'package:planova_app/features/tasks/repositories/task_repository.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -85,37 +90,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-  List<StatisticCardData> _buildStatisticCards(SettingsUser? user) {
-    final currentStreak = user?.currentStreak ?? 0;
-    final longestStreak = user?.longestStreak ?? 0;
-    final completedTasks = user?.completedTasks ?? 0;
-    final activeTasks = user?.activeTasks ?? 0;
-
+  // Updated to receive SettingsProvider directly to access the calculated stats
+  List<StatisticCardData> _buildStatisticCards(SettingsProvider settings) {
     return [
       StatisticCardData(
         title: 'Current Streak',
-        value: '$currentStreak days',
+        value: '${settings.currentStreak} days',
         icon: Icons.local_fire_department,
         iconCircleColor: const Color(0xFFFFE0B2),
         iconColor: const Color(0xFFEF6C00),
       ),
       StatisticCardData(
         title: 'Longest Streak',
-        value: '$longestStreak days',
+        value: '${settings.longestStreak} days',
         icon: Icons.emoji_events,
         iconCircleColor: const Color(0xFFE1BEE7),
         iconColor: const Color(0xFF6A1B9A),
       ),
       StatisticCardData(
         title: 'Completed',
-        value: '$completedTasks',
+        value: '${settings.completedTasks}',
         icon: Icons.check_circle,
         iconCircleColor: const Color(0xFFC8E6C9),
         iconColor: const Color(0xFF2E7D32),
       ),
       StatisticCardData(
         title: 'Active Tasks',
-        value: '$activeTasks',
+        value: '${settings.activeTasks}',
         icon: Icons.task_alt,
         iconCircleColor: const Color(0xFFBBDEFB),
         iconColor: const Color(0xFF1E88E5),
@@ -129,6 +130,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       create: (_) {
         final provider = SettingsProvider(
           repository: SettingsRepository(service: SettingsService()),
+          taskRepository:
+              getIt<TaskRepository>(),
         );
         provider.loadUser();
         return provider;
@@ -136,7 +139,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Consumer<SettingsProvider>(
         builder: (context, settings, _) {
           final user = settings.user;
-          final statistics = _buildStatisticCards(user);
+   
+          final statistics = _buildStatisticCards(settings);
           final notificationsOn = user?.notificationsEnabled ?? true;
 
           return Scaffold(
