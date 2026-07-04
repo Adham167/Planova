@@ -16,6 +16,7 @@ import 'package:planova_app/features/auth/screens/verify_code_screen.dart';
 import 'package:planova_app/features/tasks/screens/task_screen.dart';
 import 'package:planova_app/features/tasks/screens/tasks_list_screen.dart';
 import 'package:planova_app/features/splash/presentation/views/splash_view.dart';
+
 abstract class AppRouter {
   static const String splash = '/splash';
   static const String signIn = '/signIn';
