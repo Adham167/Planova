@@ -43,7 +43,7 @@ class GroupsActivityChips extends StatelessWidget {
         chip('All', ActivityFilter.all),
         chip('Active', ActivityFilter.active),
         chip('Completed', ActivityFilter.completed),
-        chip('Archived', ActivityFilter.archived),
+        // chip('Archived', ActivityFilter.archived),
       ],
     );
   }

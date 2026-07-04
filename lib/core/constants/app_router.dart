@@ -35,7 +35,7 @@ abstract class AppRouter {
   static GoRouter router(AuthProvider authProvider) {
     return GoRouter(
       refreshListenable: authProvider,
-      // 1. Start the app at the sign-in screen
+     
       initialLocation: splash,
       redirect: (context, state) {
         final isLoggedIn = authProvider.isLoggedIn;

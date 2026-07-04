@@ -4,9 +4,9 @@ enum ViewMode { list, grid }
 
 enum ScopeTab { all, team, personal }
 
-enum ActivityFilter { all, active, completed, archived }
+enum ActivityFilter { all, active, completed }
 
-enum GroupLife { active, idle, completed, archived }
+enum GroupLife { active, idle, completed }
 
 extension GroupLifeX on GroupLife {
   String get badge {
@@ -17,8 +17,8 @@ extension GroupLifeX on GroupLife {
         return 'IDLE';
       case GroupLife.completed:
         return 'COMPLETED';
-      case GroupLife.archived:
-        return 'ARCHIVED';
+      // case GroupLife.archived:
+      //   return 'ARCHIVED';
     }
   }
 
@@ -30,8 +30,8 @@ extension GroupLifeX on GroupLife {
         return const Color(0xFFB8BDC9);
       case GroupLife.completed:
         return const Color(0xFF5AA9FF);
-      case GroupLife.archived:
-        return const Color(0xFF9AA1B2);
+      // case GroupLife.archived:
+      //   return const Color(0xFF9AA1B2);
     }
   }
 
@@ -46,7 +46,7 @@ class GroupItem {
   final GroupLife life;
   final String lastSeen;
   final double progress;
-  final ScopeTab scope; 
+  final ScopeTab scope;
   final Color accent;
   final int membersExtra;
   final int comments;

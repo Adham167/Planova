@@ -39,7 +39,7 @@ class _GroupsScreenBodyState extends State<GroupsScreenBody> {
         ActivityFilter.all => true,
         ActivityFilter.active => g.status == GroupLife.active,
         ActivityFilter.completed => g.status == GroupLife.completed,
-        ActivityFilter.archived => g.status == GroupLife.archived,
+        // ActivityFilter.archived => g.status == GroupLife.archived,
       };
 
       return byQuery && byScope && byActivity;

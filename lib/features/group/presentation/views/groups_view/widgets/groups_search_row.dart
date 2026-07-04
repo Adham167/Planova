@@ -22,7 +22,7 @@ class GroupsSearchRow extends StatelessWidget {
             ),
             child: CustomTextField(
               hintText: "Search groups...",
-              onchange: (p0) {},
+              onchange: onSearch,
               icon: IconButton(
                 onPressed: () {},
                 icon: Icon(Icons.search, color: AppColors.mediumGrey),
@@ -36,7 +36,6 @@ class GroupsSearchRow extends StatelessWidget {
           height: 42,
           child: ElevatedButton(
             onPressed: () {
-              // GoRouter.of(context).push(AppRouter.kCreateGroupView);
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
