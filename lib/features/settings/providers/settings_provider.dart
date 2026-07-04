@@ -7,11 +7,11 @@ import 'package:planova_app/features/tasks/models/TaskModel.dart';
 
 class SettingsProvider extends ChangeNotifier {
   final SettingsRepository repository;
-  final TaskRepository taskRepository; // Added TaskRepository
+  final TaskRepository taskRepository;
 
   StreamSubscription<SettingsUser>? _subscription;
   StreamSubscription<List<TaskModel>>?
-  _tasksSubscription; // Added Tasks Subscription
+  _tasksSubscription;
 
   SettingsUser? _user;
   SettingsUser? get user => _user;
@@ -22,7 +22,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _isSaving = false;
   bool get isSaving => _isSaving;
 
-  // Dynamic Statistic Properties
+
   int _completedTasks = 0;
   int get completedTasks => _completedTasks;
 
@@ -100,7 +100,7 @@ class SettingsProvider extends ChangeNotifier {
       previousDate = date;
     }
 
-    // Current Streak Logic
+  
     DateTime today = DateTime.now();
     today = DateTime(today.year, today.month, today.day);
     DateTime yesterday = today.subtract(const Duration(days: 1));

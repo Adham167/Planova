@@ -5,12 +5,18 @@ import 'package:planova_app/core/constants/app_styles.dart';
 import 'package:planova_app/core/constants/assets.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key, required this.userName});
+  const CustomAppBar({
+    super.key, 
+    required this.userName,
+    required this.currentStreak, // Added parameter for the dynamic streak
+  });
 
   final String userName;
+  final int currentStreak; // Store the streak count here
 
   @override
   Widget build(BuildContext context) {
+
     final String firstLetter = userName.isNotEmpty
         ? userName[0].toUpperCase()
         : 'U';
@@ -19,8 +25,9 @@ class CustomAppBar extends StatelessWidget {
       children: [
         Row(
           children: [
+
             CircleAvatar(
-              radius: 20,
+              radius: 20, 
               backgroundColor: AppColors.primaryLightPurple,
               child: Text(
                 firstLetter,
@@ -42,25 +49,25 @@ class CustomAppBar extends StatelessWidget {
         const Spacer(),
         Row(
           children: [
-            // Container(
-            //   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            //   decoration: BoxDecoration(
-            //     color: AppColors.yellowSoft,
-            //     borderRadius: BorderRadius.circular(20),
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       SvgPicture.asset(Assets.imagesFire),
-            //       const SizedBox(width: 10),
-            //       Text(
-            //         "2",
-            //         style: AppStyles.regular12(
-            //           context,
-            //         ).copyWith(color: AppColors.orange),
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppColors.yellowSoft,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                children: [
+                  SvgPicture.asset(Assets.imagesFire),
+                  const SizedBox(width: 10),
+                  Text(
+                    "$currentStreak", // Shows the dynamic variable instead of "2"
+                    style: AppStyles.regular12(
+                      context,
+                    ).copyWith(color: AppColors.orange),
+                  ),
+                ],
+              ),
+            ),
             IconButton(
               icon: SvgPicture.asset(
                 Assets.imagesNotification,

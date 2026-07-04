@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planova_app/features/settings/providers/settings_provider.dart';
 import 'package:provider/provider.dart'; // 1. Import Provider
 
 import 'package:planova_app/core/di/service_locator.dart';
@@ -57,7 +58,12 @@ class _HomeViewState extends State<HomeView> {
                       final String displayName =
                           authProvider.userName ?? "User";
 
-                      return CustomAppBar(userName: displayName);
+                      return CustomAppBar(
+                        userName: displayName,
+                        currentStreak: context
+                            .watch<SettingsProvider>()
+                            .currentStreak,
+                      );
                     },
                   ),
                   const SizedBox(height: 24),

@@ -7,6 +7,9 @@ import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/core/constants/app_router.dart';
 import 'package:planova_app/core/di/service_locator.dart';
 import 'package:planova_app/core/utils/app_bloc_observer.dart';
+import 'package:planova_app/features/settings/providers/settings_provider.dart';
+import 'package:planova_app/features/settings/repository/settings_repository.dart';
+import 'package:planova_app/features/settings/services/settings_service.dart';
 import 'package:planova_app/firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -31,6 +34,12 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => NewTaskProvider(context.read<TaskRepository>()),
+        ),
+        ChangeNotifierProvider<SettingsProvider>(
+          create: (_) => SettingsProvider(
+            repository: SettingsRepository(service: SettingsService()),
+            taskRepository: getIt<TaskRepository>(),
+          )..loadUser(),
         ),
       ],
       child: DevicePreview(enabled: false, builder: (context) => const MyApp()),
