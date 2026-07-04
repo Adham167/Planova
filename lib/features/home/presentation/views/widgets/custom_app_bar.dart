@@ -11,7 +11,6 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Safely get the first letter, default to 'U' if the name is somehow empty
     final String firstLetter = userName.isNotEmpty
         ? userName[0].toUpperCase()
         : 'U';
@@ -20,11 +19,9 @@ class CustomAppBar extends StatelessWidget {
       children: [
         Row(
           children: [
-
             CircleAvatar(
-              radius: 20, 
-              backgroundColor: AppColors
-                  .primaryLightPurple,
+              radius: 20,
+              backgroundColor: AppColors.primaryLightPurple,
               child: Text(
                 firstLetter,
                 style: AppStyles.semiBold20(
@@ -45,25 +42,25 @@ class CustomAppBar extends StatelessWidget {
         const Spacer(),
         Row(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.yellowSoft,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                children: [
-                  SvgPicture.asset(Assets.imagesFire),
-                  const SizedBox(width: 10),
-                  Text(
-                    "2",
-                    style: AppStyles.regular12(
-                      context,
-                    ).copyWith(color: AppColors.orange),
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            //   decoration: BoxDecoration(
+            //     color: AppColors.yellowSoft,
+            //     borderRadius: BorderRadius.circular(20),
+            //   ),
+            //   child: Row(
+            //     children: [
+            //       SvgPicture.asset(Assets.imagesFire),
+            //       const SizedBox(width: 10),
+            //       Text(
+            //         "2",
+            //         style: AppStyles.regular12(
+            //           context,
+            //         ).copyWith(color: AppColors.orange),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             IconButton(
               icon: SvgPicture.asset(
                 Assets.imagesNotification,

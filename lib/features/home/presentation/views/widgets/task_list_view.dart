@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planova_app/features/home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:planova_app/features/home/presentation/views/widgets/task_item.dart';
 import 'package:planova_app/features/tasks/models/TaskModel.dart';
 
@@ -14,7 +16,13 @@ class TaskListView extends StatelessWidget {
         final task = tasks[index];
         return Column(
           children: [
-            TaskItem(taskModel: task),
+            TaskItem(
+              taskModel: task,
+              onToggle: (newStatus) {
+         
+                context.read<HomeCubit>().toggleTaskCompletion(task);
+              },
+            ),
             if (index != tasks.length - 1) const SizedBox(height: 8),
           ],
         );
