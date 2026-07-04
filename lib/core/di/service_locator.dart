@@ -15,6 +15,7 @@ import 'package:planova_app/features/group/domain/usecases/add_member_to_existin
 import 'package:planova_app/features/group/domain/usecases/create_group_task_usecase.dart';
 import 'package:planova_app/features/group/domain/usecases/get_chat_messages_stream_usecase.dart';
 import 'package:planova_app/features/group/domain/usecases/send_group_message_usecase.dart';
+import 'package:planova_app/features/group/domain/usecases/stream_my_groups_usecase.dart';
 import 'package:planova_app/features/group/domain/usecases/toggle_task_completion_usecase.dart';
 
 import 'package:planova_app/features/group/presentation/manager/create_group_cubit/create_group_cubit.dart';
@@ -52,7 +53,9 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton(() => SendGroupMessageUseCase(repo: getIt()));
   getIt.registerLazySingleton(() => ToggleTaskCompletionUseCase(repo: getIt()));
 
-  getIt.registerFactory(() => GetGroupsCubit(getIt<GetMyGroupsUseCase>()));
+  getIt.registerLazySingleton(() => StreamMyGroupsUseCase(getIt()));
+
+  getIt.registerFactory(() => GetGroupsCubit(getIt<StreamMyGroupsUseCase>()));
 
   getIt.registerFactory(() => SearchUserCubit(getIt<SearchUserUsecase>()));
 
@@ -86,7 +89,7 @@ Future<void> initializeDependencies() async {
     () => CreateTaskCubit(
       createGroupTaskUseCase: getIt<CreateGroupTaskUseCase>(),
       getMyGroupsUseCase: getIt<GetMyGroupsUseCase>(),
-      groupsRepo: getIt<GroupsRepo>(), 
+      groupsRepo: getIt<GroupsRepo>(),
     ),
   );
 }
