@@ -23,6 +23,8 @@ class NewTaskProvider extends ChangeNotifier {
   DateTime dueDate = DateTime.now();
   bool reminderEnabled = false;
 
+  bool isGroupLocked = false;
+
   NewTaskStatus _status = NewTaskStatus.editing;
   String? _error;
 
@@ -55,13 +57,15 @@ class NewTaskProvider extends ChangeNotifier {
     description = value;
     notifyListeners();
   }
-void initForSpecificGroup(String id, String name) {
+
+  void initForSpecificGroup(String id, String name) {
     clearTask(); // Clear previous data
     groupId = id;
     groupName = name;
     taskType = 'Team';
     notifyListeners();
   }
+
   void setPriority(String value) {
     priority = value;
     notifyListeners();

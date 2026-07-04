@@ -10,23 +10,35 @@ class TaskOptionsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<NewTaskProvider>();
 
-    List<DropdownItemModel> groupItems = [
-      DropdownItemModel(
-        value: "Personal Tasks",
-        icon: Icons.person,
-        color: const Color(0xFF9BA3EB),
-      ),
-    ];
+    List<DropdownItemModel> groupItems = [];
 
-    groupItems.addAll(
-      provider.availableGroups.map(
-        (g) => DropdownItemModel(
-          value: g.name,
+    if (provider.isGroupLocked && provider.groupName != null) {
+      groupItems.add(
+        DropdownItemModel(
+          value: provider.groupName!,
           icon: Icons.group,
           color: const Color(0xFF9BA3EB),
         ),
-      ),
-    );
+      );
+    } else {
+      groupItems.add(
+        DropdownItemModel(
+          value: "Personal Tasks",
+          icon: Icons.person,
+          color: const Color(0xFF9BA3EB),
+        ),
+      );
+      
+      groupItems.addAll(
+        provider.availableGroups.map(
+          (g) => DropdownItemModel(
+            value: g.name,
+            icon: Icons.group,
+            color: const Color(0xFF9BA3EB),
+          ),
+        ),
+      );
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -65,6 +77,8 @@ class TaskOptionsRow extends StatelessWidget {
           label: "Group",
           items: groupItems,
           onChanged: (value) {
+            if (provider.isGroupLocked) return; 
+
             if (value == "Personal Tasks" || value == null) {
               provider.setGroup(null, null);
             } else {

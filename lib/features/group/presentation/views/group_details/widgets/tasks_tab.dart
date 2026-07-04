@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:planova_app/features/tasks/screens/task_screen.dart';
-import 'package:provider/provider.dart'; 
+import 'package:planova_app/features/tasks/screens/task_screen.dart'; 
 import 'package:planova_app/core/constants/app_colors.dart';
 import 'package:planova_app/features/group/domain/entities/group_entity.dart';
 import 'package:planova_app/features/group/presentation/manager/group_details_cubit/group_details_cubit.dart';
@@ -38,10 +37,12 @@ class TasksTab extends StatelessWidget {
                         groupEntity.name,
                       );
 
-                  
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => const CreateTaskScreen(isEdit: false),
+                      builder: (_) => const CreateTaskScreen(
+                        isEdit: false,
+                        isGroupLocked: true, 
+                      ),
                     ),
                   );
                 },
@@ -101,12 +102,11 @@ class TasksTab extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: GestureDetector(
                       onTap: () {
-                        // 3. MAP GroupTaskEntity to TaskModel for Editing
                         final taskModelToEdit = TaskModel(
                           taskId: groupTask.id,
                           title: groupTask.title,
                           description: groupTask.description,
-                          priority: groupTask.priority.name, // Enum to string
+                          priority: groupTask.priority.name,
                           groupId: groupTask.groupId,
                           groupName: groupEntity.name,
                           taskType: 'Team',
@@ -117,12 +117,12 @@ class TasksTab extends StatelessWidget {
                           createdAt: groupTask.createdAt,
                         );
 
-                 
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (_) => CreateTaskScreen(
                               isEdit: true,
                               task: taskModelToEdit,
+                              isGroupLocked: true,
                             ),
                           ),
                         );

@@ -12,8 +12,14 @@ import 'package:planova_app/features/tasks/models/TaskModel.dart';
 class CreateTaskScreen extends StatefulWidget {
   final bool isEdit;
   final TaskModel? task;
+  final bool isGroupLocked; 
 
-  const CreateTaskScreen({super.key, this.isEdit = false, this.task});
+  const CreateTaskScreen({
+    super.key, 
+    this.isEdit = false, 
+    this.task,
+    this.isGroupLocked = false, 
+  });
 
   @override
   State<CreateTaskScreen> createState() => _CreateTaskScreenState();
@@ -26,6 +32,8 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<NewTaskProvider>();
+
+      provider.isGroupLocked = widget.isGroupLocked;
 
       provider.fetchGroups();
 
