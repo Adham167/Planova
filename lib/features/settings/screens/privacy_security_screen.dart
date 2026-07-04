@@ -102,9 +102,9 @@ class _PrivacySecurityScreenState extends State<PrivacySecurityScreen> {
     final DateTime? lastChanged = user?.passwordChangedAt;
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.kBackGround,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.kBackGround,
         elevation: 0,
         leading: const BackButton(color: Colors.black),
         centerTitle: true,

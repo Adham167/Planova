@@ -82,7 +82,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-
   List<StatisticCardData> _buildStatisticCards(SettingsProvider settings) {
     return [
       StatisticCardData(
@@ -118,7 +117,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
- 
     return Consumer<SettingsProvider>(
       builder: (context, settings, _) {
         final user = settings.user;
@@ -127,9 +125,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         final notificationsOn = user?.notificationsEnabled ?? true;
 
         return Scaffold(
-          backgroundColor: AppColors.cardColor,
+          backgroundColor: AppColors.kBackGround,
+
           appBar: AppBar(
-            backgroundColor: AppColors.backgroundColor,
+            backgroundColor: AppColors.kBackGround,
             elevation: 0,
             centerTitle: true,
             title: Text(
@@ -152,6 +151,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           body: SafeArea(
             bottom: false,
+
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
@@ -226,7 +226,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   GridView.count(
                     physics: const NeverScrollableScrollPhysics(),
                     crossAxisCount: 2,
-                    childAspectRatio: 1.1,
+                    childAspectRatio: 1.3,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                     shrinkWrap: true,
@@ -404,7 +404,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                
                                 builder: (routeContext) =>
                                     const PrivacySecurityScreen(),
                               ),

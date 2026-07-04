@@ -117,23 +117,24 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
     try {
       await context.read<AuthProvider>().changePassword(
-            oldPassword: oldPassword,
-            newPassword: newPassword,
-          );
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      );
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Password updated successfully', style: GoogleFonts.poppins()),
+          content: Text(
+            'Password updated successfully',
+            style: GoogleFonts.poppins(),
+          ),
         ),
       );
       Navigator.of(context).pop();
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString(), style: GoogleFonts.poppins()),
-        ),
+        SnackBar(content: Text(e.toString(), style: GoogleFonts.poppins())),
       );
     }
   }
@@ -143,9 +144,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     final isLoading = context.watch<AuthProvider>().isLoading;
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.kBackGround,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.kBackGround,
         elevation: 0,
         leading: const BackButton(color: Colors.black),
         centerTitle: true,
