@@ -226,7 +226,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   GridView.count(
                     physics: const NeverScrollableScrollPhysics(),
                     crossAxisCount: 2,
-                    childAspectRatio: 1.14,
+                    childAspectRatio: 1.11,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                     shrinkWrap: true,
