@@ -181,13 +181,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: const Color(0xFF5C6BC0),
+                                color: AppColors.primaryLightPurple,
                                 width: 2.5,
                               ),
                             ),
                             child: CircleAvatar(
                               radius: 40,
-                              backgroundColor: const Color(0xFFE8EAF6),
+                              backgroundColor: AppColors.primaryLightPurple,
                               backgroundImage:
                                   user != null && user.profilePicUrl.isNotEmpty
                                   ? NetworkImage(user.profilePicUrl)
@@ -324,7 +324,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     }
                                   },
                           ),
-                          const Divider(height: 1, indent: 16, endIndent: 16),
+                          const Divider(
+                            height: 1,
+                            indent: 16,
+                            endIndent: 16,
+                            color: AppColors.grey300,
+                          ),
                           SwitchListTile(
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 12,
@@ -366,7 +371,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               });
                             },
                           ),
-                          const Divider(height: 1, indent: 16, endIndent: 16),
+                          const Divider(
+                            height: 1,
+                            indent: 16,
+                            endIndent: 16,
+                            color: AppColors.grey300,
+                          ),
                           ListTile(
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 12,
